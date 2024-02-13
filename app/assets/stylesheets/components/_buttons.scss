@@ -1,0 +1,40 @@
+.minimalist-input {
+  border-radius: 8px;
+  border: 2px solid $light-gray;
+  padding: 12px;
+  color: $gray;
+  font-weight: bold;
+  width: max-content;
+  transition: 0.3s;
+
+  &:hover {
+    border-color: $success;
+    color: black;
+  }
+}
+
+.minimalist-button {
+  border-radius: 8px;
+  padding: 12px;
+  color: $white;
+  font-weight: bold;
+  width: max-content;
+  transition: 0.3s;
+  background-color: $dark-gray;
+
+  &:hover {
+    background-color: $success;
+  }
+}
+
+.item-button {
+  border-radius: 8px;
+  padding: 12px;
+  width: max-content;
+  transition: 0.3s;
+  border: 2px solid $light-gray;
+
+  &:hover {
+    border: 2px solid $success;
+  }
+}

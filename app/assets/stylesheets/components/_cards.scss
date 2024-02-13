@@ -1,0 +1,14 @@
+.service-card {
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  // border: 2px solid $light-gray;
+  padding: 20px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+  width: 400px;
+
+  &:hover {
+    box-shadow: 0 0 5px 0 $success;
+    transition: 0.3s;
+  }
+}
