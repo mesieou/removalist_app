@@ -1,5 +1,5 @@
 .minimalist-input {
-  border-radius: 8px;
+  border-radius: 5px;
   border: 2px solid $light-gray;
   padding: 12px;
   color: $gray;
@@ -8,34 +8,33 @@
   transition: 0.3s;
 
   &:hover {
-    border-color: $success;
+    border-color: #005b82;
     color: black;
   }
 }
 
 .minimalist-button {
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 12px;
   color: $white;
-  font-weight: bold;
   width: max-content;
   transition: 0.3s;
-  background-color: $dark-gray;
-
+  background-color: #0086c0;
+  border: none;
   &:hover {
-    background-color: $success;
+    background-color: #005b82;
   }
 }
 
 .item-button {
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 12px;
   width: max-content;
   transition: 0.3s;
   border: 2px solid $light-gray;
 
   &:hover {
-    border: 2px solid $success;
+    border: 2px solid #005b82;
   }
 }
 .link {
