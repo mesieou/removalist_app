@@ -7,3 +7,9 @@ $title-font: "Montserrat", "Helvetica", "sans-serif";
 $large: 125px;
 $medium: 36px;
 $small: 24px;
+
+@media (max-width: 768px) {
+  $large: 100px;
+  $medium: 24px;
+  $small: 18px;
+}
