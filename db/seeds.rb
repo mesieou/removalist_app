@@ -1,4 +1,4 @@
-
+#Destroying and creating items
 items = {
   "big cabinet" => 21,
   "3 seater couch" => 17.5,
@@ -27,7 +27,6 @@ items = {
 }
 puts 'Destroying old items'
 Item.destroy_all
-
 puts 'Creating new items'
 items.each do |item|
   Item.create!(name: item[0], estimated_total_loading_time: item[1].to_i)

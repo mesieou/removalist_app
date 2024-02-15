@@ -10,5 +10,6 @@ class LocationsController < ApplicationController
   end
 
   def create
+    @location
   end
 end

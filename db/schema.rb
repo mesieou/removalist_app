@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_15_060334) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_15_080608) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accesibilities", force: :cascade do |t|
+    t.string "type_of_place"
+    t.integer "number_of_stories"
+    t.boolean "stairs_or_lift"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "bookings", force: :cascade do |t|
     t.datetime "date_time"
@@ -25,7 +33,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_15_060334) do
     t.bigint "items_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "location_id", null: false
     t.index ["items_id"], name: "index_bookings_on_items_id"
+    t.index ["location_id"], name: "index_bookings_on_location_id"
     t.index ["locations_id"], name: "index_bookings_on_locations_id"
     t.index ["services_id"], name: "index_bookings_on_services_id"
     t.index ["users_id"], name: "index_bookings_on_users_id"
@@ -39,14 +49,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_15_060334) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.string "address_pick_up_1"
-    t.string "type"
-    t.integer "number_of_stories"
-    t.boolean "stairs_or_lift"
+    t.string "address"
+    t.string "pick_up_or_drop_off"
+    t.bigint "accesibility_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "address_pick_up_2"
-    t.string "address_drop_off"
+    t.index ["accesibility_id"], name: "index_locations_on_accesibility_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -69,7 +77,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_15_060334) do
   end
 
   add_foreign_key "bookings", "items", column: "items_id"
-  add_foreign_key "bookings", "locations", column: "locations_id"
+  add_foreign_key "bookings", "locations"
   add_foreign_key "bookings", "services", column: "services_id"
   add_foreign_key "bookings", "users", column: "users_id"
+  add_foreign_key "locations", "accesibilities"
 end
