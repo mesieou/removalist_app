@@ -1,8 +1,8 @@
 <%= render 'shared/booking_navbar' %>
 <div class="booking-form-container">
-  <%= form_with(model: @location, url: new_location_path, class:'booking-form') do |f| %>
-    <%= f.text_field :address, class: 'minimalist-input', placeholder: 'from'%>
-    <%= f.text_field :address, class: 'minimalist-input', placeholder: 'to'%>
+  <%= form_with(model: @location, url: new_location_booking_index_path, class:'booking-form') do |f| %>
+    <%= f.text_field :address_pick_up_1, class: 'minimalist-input', placeholder: 'from'%>
+    <%= f.text_field :address_drop_off, class: 'minimalist-input', placeholder: 'to'%>
     <%= f.submit  value: 'Next', class: 'minimalist-button w-25' %>
   <% end %>
 </div>
