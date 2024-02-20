@@ -1,6 +1,6 @@
 <%= render 'shared/booking_navbar' %>
 <div class="booking-form-container">
-  <%= form_with(model: @location, url: new_accesibility_booking_index_path, class:'booking-form', method: 'get') do |f| %>
+  <%= form_with(model: @location, url: locations_booking_index_path, class:'booking-form', method: 'post') do |f| %>
     <%= f.fields_for :addresses do |address_f| %>
       <%= address_f.text_field :pick_up, class: 'minimalist-input', placeholder: 'from'%>
       <%= address_f.text_field :drop_off, class: 'minimalist-input', placeholder: 'from'%>

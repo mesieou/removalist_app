@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     collection do
       get 'locations/new', to: 'locations#new', as: 'new_location'
       post 'locations/', to: 'locations#create', as: 'locations'
-      get 'accesibilities/new', to: 'accesibilities#new', as: :new_accesibility
-      post 'accesibilities/', to: 'accesibilities#create'
+      get 'locations/:id/edit', to: 'locations#edit', as: :add_accesibility
+      patch 'locations/:id', to: 'locations#update', as: :update_location
     end
   end
 end

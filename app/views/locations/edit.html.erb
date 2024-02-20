@@ -1,0 +1,42 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-2">
+      <p>Location</p>
+    </div>
+    <div class="col-2 active">
+      <p>Accesibility</p>
+    </div>
+    <div class="col-2">
+      <p>Items</p>
+    </div>
+    <div class="col-2">
+      <p>Date and Time</p>
+    </div>
+    <div class="col-2">
+      <p>Quote</p>
+    </div>
+    <div class="col-2">
+      <p>Booking</p>
+    </div>
+  </div>
+</div>
+
+ <%= form_with(model: @location, url: update_location_booking_index_path ) do |f| %>
+  <%= f.label :type_of_places, "Type of Places" %>
+  <%= f.collection_radio_buttons :type_of_places, [['house', 'House'], ['apartment', 'Apartment']], :first, :last, item_wrapper_tag: :div, class: 'image-options' do |b| %>
+   <%= b.radio_button + b.label { image_tag("#{b.value}.svg") } %>
+  <% end %>
+
+  <%= f.label :number_of_stories, 'Number or stories'%>
+  <%= f.collection_radio_buttons :number_of_stories, [['onestory', 'Onestory'], ['morethantwostories', 'Morethantwostories']], :first, :last, item_wrapper_tag: :div, class: 'image-options' do |b|  %>
+   <%= b.radio_button + b.label { image_tag("#{b.value}.svg") } %>
+  <% end %>
+
+  <%= f.label :number_of_stories, 'Stairs or Lift?'%>
+  <%= f.collection_radio_buttons :stairs_or_lift, [['stairs', 'Stairs'], ['lift', 'Lift']], :first, :last, item_wrapper_tag: :div, class: 'image-options' do |b|  %>
+   <%= b.radio_button + b.label { image_tag("#{b.value}.svg") } %>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>

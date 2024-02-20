@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :authenticate_user!, except: [:new, :create]
+  before_action :authenticate_user!, except: [:new, :create, :edit, :update]
 
   def show
     @book
@@ -11,13 +11,29 @@ class LocationsController < ApplicationController
 
   def create
     @location = Location.new(location_params)
-    session[:pending_location] = @location.attributes
-    redirect_to new_accesibility_booking_index_path
+    if @location.save!
+      redirect_to add_accesibility_booking_index_path(@location)
+    else
+      render 'new', status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @location = Location.find(params[:id])
+  end
+
+  def update
+    @location = Location.find(params[:id])
+    @location.update(location_params)
+    if @location.save
+
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   private
   def location_params
-    params.require(:location).permit(addresses_attributes: [:pick_up, :drop_off],
-    )
+    params.require(:location).permit(:type_of_places, :number_of_stories, :stairs_or_lift, addresses: [:pick_up, :drop_off])
   end
 end
