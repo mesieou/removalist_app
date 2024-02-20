@@ -20,23 +20,45 @@
       <p>Booking</p>
     </div>
   </div>
+  <h2 class='text-center my-3'>Pick Up Location</h2>
+
+  <div class="accesibility-options d-flex justify-content-center">
+    <%= form_with(model: @location, url: update_location_booking_index_path ) do |f| %>
+      <div class="options d-flex">
+        <div class="type_of_place d-flex flex-column">
+          <%= f.label :pick_up_type_of_place, "Type of Place", class:'mx-5' %>
+          <div class="places-buttons text-center">
+            <%= f.collection_radio_buttons :pick_up_type_of_place, [['house', 'House'], ['apartment', 'Apartment']], :first, :last, item_wrapper_tag: :div, class: 'mx-5' do |b| %>
+              <%= b.label do %>
+                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img') %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="type_of_place d-flex flex-column">
+          <%= f.label :pick_up_number_of_stories, 'Number of stories', class:'mx-5'%>
+          <div class="places-buttons text-center">
+            <%= f.collection_radio_buttons :pick_up_number_of_stories, [['onestory', 'Onestory'], ['morethantwostories', 'Morethantwostories']], :first, :last, item_wrapper_tag: :div, class: 'mx-5' do |b|  %>
+              <%= b.label do %>
+                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img') %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="type_of_place d-flex flex-column">
+          <%= f.label :pick_up_stairs_or_lift, 'Stairs or Lift?', class:'mx-5'%>
+          <div class="places-buttons text-center">
+            <%= f.collection_radio_buttons :pick_up_stairs_or_lift, [['stairs', 'Stairs'], ['lift', 'Lift']], :first, :last, item_wrapper_tag: :div, class: 'mx-5' do |b|  %>
+              <%= b.label do %>
+                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img') %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+
+      <%= f.submit value: 'Next', class: 'minimalist-button w-100 my-3' %>
+    <% end %>
+  </div>
 </div>
-
- <%= form_with(model: @location, url: update_location_booking_index_path ) do |f| %>
-  <%= f.label :type_of_places, "Type of Places" %>
-  <%= f.collection_radio_buttons :type_of_places, [['house', 'House'], ['apartment', 'Apartment']], :first, :last, item_wrapper_tag: :div, class: 'image-options' do |b| %>
-   <%= b.radio_button + b.label { image_tag("#{b.value}.svg") } %>
-  <% end %>
-
-  <%= f.label :number_of_stories, 'Number or stories'%>
-  <%= f.collection_radio_buttons :number_of_stories, [['onestory', 'Onestory'], ['morethantwostories', 'Morethantwostories']], :first, :last, item_wrapper_tag: :div, class: 'image-options' do |b|  %>
-   <%= b.radio_button + b.label { image_tag("#{b.value}.svg") } %>
-  <% end %>
-
-  <%= f.label :number_of_stories, 'Stairs or Lift?'%>
-  <%= f.collection_radio_buttons :stairs_or_lift, [['stairs', 'Stairs'], ['lift', 'Lift']], :first, :last, item_wrapper_tag: :div, class: 'image-options' do |b|  %>
-   <%= b.radio_button + b.label { image_tag("#{b.value}.svg") } %>
-  <% end %>
-
-  <%= f.submit %>
-<% end %>

@@ -34,6 +34,6 @@ class LocationsController < ApplicationController
 
   private
   def location_params
-    params.require(:location).permit(:type_of_places, :number_of_stories, :stairs_or_lift, addresses: [:pick_up, :drop_off])
+    params.require(:location).permit(:pick_up, :drop_off, :pick_up_type_of_place, :drop_off_type_of_place, :pick_up_number_of_stories, :drop_off_number_of_stories, :pick_up_stairs_or_lift, :drop_off_stairs_or_lift)
   end
 end
