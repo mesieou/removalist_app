@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="row">
+  <div class="row car-navbar">
     <div class="col-2">
       <p>Location</p>
     </div>
@@ -20,19 +20,25 @@
       <p>Booking</p>
     </div>
   </div>
-  <h2 class='text-center my-3'>Pick Up Location</h2>
 
-  <div class="accesibility-options d-flex justify-content-center">
+  <div class="accesibility-options d-flex justify-content-center mt-3">
     <%= form_with(model: @location, url: update_location_booking_index_path ) do |f| %>
-      <div class="options d-flex">
+      <%# pick up location %>
+      <h2 class='text-center my-3'>Pick Up Location</h2>
+      <div class="options d-flex  mb-5">
         <div class="type_of_place d-flex flex-column">
-          <%= f.label :pick_up_type_of_place, "Type of Place", class:'mx-5' %>
+          <%= f.label :pick_up_type_of_place, "Type of Place", class:'mx-5 text-center' %>
           <div class="places-buttons text-center">
             <%= f.collection_radio_buttons :pick_up_type_of_place, [['house', 'House'], ['apartment', 'Apartment']], :first, :last, item_wrapper_tag: :div, class: 'mx-5' do |b| %>
               <%= b.label do %>
-                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img') %>
+                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img m-2') %>
               <% end %>
             <% end %>
+          <div class="d-flex justify-content-center mx-5">
+            <p class='small mx-2'>House</p>
+            <p class='small mx-2'>Apartment</p>
+          </div>
+
           </div>
         </div>
         <div class="type_of_place d-flex flex-column">
@@ -40,9 +46,13 @@
           <div class="places-buttons text-center">
             <%= f.collection_radio_buttons :pick_up_number_of_stories, [['onestory', 'Onestory'], ['morethantwostories', 'Morethantwostories']], :first, :last, item_wrapper_tag: :div, class: 'mx-5' do |b|  %>
               <%= b.label do %>
-                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img') %>
+                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img m-2') %>
               <% end %>
             <% end %>
+          <div class="d-flex justify-content-center mx-5">
+            <p class='small mx-2'>One Story</p>
+            <p class='small mx-2'>+2 Stories</p>
+          </div>
           </div>
         </div>
         <div class="type_of_place d-flex flex-column">
@@ -50,13 +60,65 @@
           <div class="places-buttons text-center">
             <%= f.collection_radio_buttons :pick_up_stairs_or_lift, [['stairs', 'Stairs'], ['lift', 'Lift']], :first, :last, item_wrapper_tag: :div, class: 'mx-5' do |b|  %>
               <%= b.label do %>
-                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img') %>
+                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img m-2') %>
               <% end %>
             <% end %>
+            <div class="d-flex justify-content-center mx-5">
+              <p class='small mx-3'>Stairs</p>
+              <p class='small mx-3'>Lift</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%# drop off location %>
+      <h2 class='text-center my-3'>Drop Off Location</h2>
+      <div class="options d-flex">
+        <div class="type_of_place d-flex flex-column">
+          <%= f.label :drop_off_type_of_place, "Type of Place", class:'mx-5' %>
+          <div class="places-buttons text-center">
+            <%= f.collection_radio_buttons :drop_off_type_of_place, [['house', 'House'], ['apartment', 'Apartment']], :first, :last, item_wrapper_tag: :div, class: 'mx-5' do |b| %>
+              <%= b.label do %>
+                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img m-2') %>
+              <% end %>
+            <% end %>
+            <div class="d-flex justify-content-center mx-5">
+              <p class='small mx-2'>House</p>
+              <p class='small mx-2'>Apartment</p>
+            </div>
+          </div>
+        </div>
+        <div class="type_of_place d-flex flex-column">
+          <%= f.label :drop_off_number_of_stories, 'Number of stories', class:'mx-5'%>
+          <div class="places-buttons text-center">
+            <%= f.collection_radio_buttons :drop_off_number_of_stories, [['onestory', 'Onestory'], ['morethantwostories', 'Morethantwostories']], :first, :last, item_wrapper_tag: :div, class: 'mx-5' do |b|  %>
+              <%= b.label do %>
+                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img m-2') %>
+              <% end %>
+            <% end %>
+            <div class="d-flex justify-content-center mx-5">
+              <p class='small mx-2'>One Story</p>
+              <p class='small mx-2'>+2 Stories</p>
+            </div>
+          </div>
+        </div>
+        <div class="type_of_place d-flex flex-column">
+          <%= f.label :drop_off_stairs_or_lift, 'Stairs or Lift?', class:'mx-5'%>
+          <div class="places-buttons text-center">
+            <%= f.collection_radio_buttons :drop_off_stairs_or_lift, [['stairs', 'Stairs'], ['lift', 'Lift']], :first, :last, item_wrapper_tag: :div, class: 'mx-5' do |b|  %>
+              <%= b.label do %>
+                <%= b.radio_button + image_tag("#{b.value}.svg", class: 'img m-2') %>
+              <% end %>
+            <% end %>
+            <div class="d-flex justify-content-center mx-5">
+              <p class='small mx-3'>Stairs</p>
+              <p class='small mx-3'>Lift</p>
+            </div>
           </div>
         </div>
 
       </div>
+
 
       <%= f.submit value: 'Next', class: 'minimalist-button w-100 my-3' %>
     <% end %>
