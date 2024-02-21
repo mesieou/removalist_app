@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'items/index'
   devise_for :users
   root to: "pages#home"
 
@@ -8,6 +9,9 @@ Rails.application.routes.draw do
       post 'locations/', to: 'locations#create', as: 'locations'
       get 'locations/:id/edit', to: 'locations#edit', as: :add_accesibility
       patch 'locations/:id', to: 'locations#update', as: :update_location
+    end
+    collection do
+      get 'items/', to: 'items#index', as: 'items'
     end
   end
 end

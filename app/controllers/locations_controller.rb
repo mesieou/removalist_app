@@ -26,7 +26,7 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
     @location.update(location_params)
     if @location.save
-      redirect_to add_accesibility_booking_index_path(@location)
+      redirect_to items_booking_index_path
     else
       render 'edit', status: :unprocessable_entity
     end

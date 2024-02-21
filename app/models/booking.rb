@@ -1,8 +1,8 @@
 class Booking < ApplicationRecord
-  belongs_to :users
-  belongs_to :locations
-  belongs_to :services
-  has_one :kart
+  belongs_to :user
+  belongs_to :location
+  belongs_to :service
+  belongs_to :kart
 
   validates :date_time, presence: true
   validates :duration_in_minutes, presence: true, numericality: { only_integer: true }

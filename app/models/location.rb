@@ -1,3 +1,4 @@
 class Location < ApplicationRecord
-belongs_to :booking
+has_many :bookings
+has_many :users, through: :bookings
 end
