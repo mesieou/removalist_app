@@ -1,2 +1,32 @@
-<h1>Items#index</h1>
-<p>Find me in app/views/items/index.html.erb</p>
+<div class="container">
+
+  <div class="row car-navbar">
+    <div class="col-2">
+      <p>Location</p>
+    </div>
+    <div class="col-2">
+      <p>Accesibility</p>
+    </div>
+    <div class="col-2 active">
+      <p>Items</p>
+    </div>
+    <div class="col-2">
+      <p>Date and Time</p>
+    </div>
+    <div class="col-2">
+      <p>Quote</p>
+    </div>
+    <div class="col-2">
+      <p>Booking</p>
+    </div>
+  </div>
+
+ <div class="item-cards">
+    <% @items.each do |item| %>
+      <div class="item-card d-flex justify-content-center">
+        <p class="item-button"> <%= item.name %></p>
+      </div>
+    <% end %>
+ </div>
+
+</div>

@@ -12,3 +12,10 @@
     transition: 0.3s;
   }
 }
+
+.item-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 8px;
+  margin: 36px 62px;
+}
