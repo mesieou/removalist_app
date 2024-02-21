@@ -1,4 +1,4 @@
-#Destroying and creating items
+#Destroying and creating items in the list_of_items table
 items = {
   "big cabinet" => 21,
   "3 seater couch" => 17.5,
@@ -26,10 +26,10 @@ items = {
   "suitcase bags" => 3.5
 }
 puts 'Destroying old items'
-Item.destroy_all
+ListOfItem.destroy_all
 puts 'Creating new items'
 items.each do |item|
-  Item.create!(name: item[0], estimated_total_loading_time: item[1].to_i)
+  ListOfItem.create!(name: item[0], estimated_total_loading_time: item[1].to_i)
   puts "Created #{item[0]}"
 end
 puts 'All iteams created'

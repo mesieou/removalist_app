@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_20_023854) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_21_080952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,18 +22,30 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_20_023854) do
     t.bigint "users_id", null: false
     t.bigint "locations_id", null: false
     t.bigint "services_id", null: false
-    t.bigint "items_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "location_id", null: false
-    t.index ["items_id"], name: "index_bookings_on_items_id"
-    t.index ["location_id"], name: "index_bookings_on_location_id"
     t.index ["locations_id"], name: "index_bookings_on_locations_id"
     t.index ["services_id"], name: "index_bookings_on_services_id"
     t.index ["users_id"], name: "index_bookings_on_users_id"
   end
 
   create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.integer "estimated_total_loading_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "kart_id", null: false
+    t.index ["kart_id"], name: "index_items_on_kart_id"
+  end
+
+  create_table "karts", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_karts_on_booking_id"
+  end
+
+  create_table "list_of_items", force: :cascade do |t|
     t.string "name"
     t.integer "estimated_total_loading_time"
     t.datetime "created_at", null: false
@@ -51,6 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_20_023854) do
     t.string "drop_off_number_of_stories"
     t.string "pick_up_stairs_or_lift"
     t.string "drop_off_stairs_or_lift"
+    t.bigint "booking_id", null: false
+    t.index ["booking_id"], name: "index_locations_on_booking_id"
   end
 
   create_table "services", force: :cascade do |t|
@@ -72,8 +86,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_20_023854) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "bookings", "items", column: "items_id"
-  add_foreign_key "bookings", "locations"
   add_foreign_key "bookings", "services", column: "services_id"
   add_foreign_key "bookings", "users", column: "users_id"
+  add_foreign_key "items", "karts"
+  add_foreign_key "karts", "bookings"
+  add_foreign_key "locations", "bookings"
 end

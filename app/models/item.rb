@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  has_many :bookings
+  belongs_to :kart
   validates :name, presence: true
   validates :estimated_total_loading_time, presence: true, numericality: { only_integer: true }
 end
