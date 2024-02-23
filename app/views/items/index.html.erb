@@ -28,5 +28,10 @@
       </div>
     <% end %>
  </div>
-
+ <div class="booki">
+  <%= form_with(model: @location, url: items_booking_index_path, class: 'd-flex justify-content-center', method: 'get') do |f| %>
+    <%= f.text_field :search_input, value: params[:search_input], class: 'minimalist-input', placeholder: 'couch'%>
+    <%= f.submit  value: 'Search', class: 'minimalist-button w-10 mx-3'%>
+  <% end %>
+</div>
 </div>
