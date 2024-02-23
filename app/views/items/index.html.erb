@@ -28,10 +28,26 @@
       </div>
     <% end %>
  </div>
- <div class="booki">
+ <div class="search">
   <%= form_with(model: @location, url: items_booking_index_path, class: 'd-flex justify-content-center', method: 'get') do |f| %>
     <%= f.text_field :search_input, value: params[:search_input], class: 'minimalist-input', placeholder: 'couch'%>
     <%= f.submit  value: 'Search', class: 'minimalist-button w-10 mx-3'%>
   <% end %>
 </div>
 </div>
+
+
+<%# 1. Set up the controller items_to_car %>
+<%# 2. Add the controller in the html %>
+<%# 3. Check controller is connected %>
+<%# 4. select the cards as actions%>
+<%# 5. select the cards as targets%>
+<%# 6. implement the action in javascript%>
+<%# 6.1 toggle active class to colour the word%>
+
+<%# 5. select the add button as action %>
+<%# 6. select the active words as targets %>
+<%# 6. implement the action in javascript %>
+<%# 6.1 create a kart  %>
+<%# 6.2 add the item to the kart %>
+<%# 6.3 show the kart show %>
