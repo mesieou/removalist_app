@@ -21,10 +21,10 @@
     </div>
   </div>
 
- <div class="item-cards">
+ <div data-controller="add-items" class="item-cards">
     <% @items.each do |item| %>
       <div class="item-card d-flex justify-content-center">
-        <p class="item-button"> <%= item.name %></p>
+        <p class="item-button" data-add-items-target="item" data-action="click->add-items#add"> <%= item.name %></p>
       </div>
     <% end %>
  </div>
@@ -33,7 +33,7 @@
     <%= f.text_field :search_input, value: params[:search_input], class: 'minimalist-input', placeholder: 'couch'%>
     <%= f.submit  value: 'Search', class: 'minimalist-button w-10 mx-3'%>
   <% end %>
-</div>
+ </div>
 </div>
 
 
