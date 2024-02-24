@@ -1,3 +1,9 @@
+.minimalist-button-active {
+  border: 2px solid #005b82 !important; // Add !important to ensure higher specificity
+  color: black;
+}
+
+
 .minimalist-input {
   border-radius: 5px;
   border: 2px solid $light-gray;
@@ -8,10 +14,11 @@
   transition: 0.3s;
 
   &:hover {
-    border-color: #005b82;
+    border: 2px solid #005b82;
     color: black;
   }
 }
+
 
 .minimalist-button {
   border-radius: 5px;
