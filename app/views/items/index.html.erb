@@ -20,14 +20,17 @@
       <p>Booking</p>
     </div>
   </div>
-
- <div data-controller="add-items" class="item-cards">
-    <% @items.each do |item| %>
-      <div class="item-card d-flex justify-content-center">
-        <p class="item-button" data-add-items-target="item" data-action="click->add-items#add"> <%= item.name %></p>
-      </div>
-    <% end %>
+ <div data-controller="add-items">
+  <div class="item-cards" data-add-items-target="items">
+      <% @items.each do |item| %>
+        <div class="item-card d-flex justify-content-center">
+          <p class="item-button" data-add-items-target="item" data-action="click->add-items#select"> <%= item.name %></p>
+        </div>
+      <% end %>
+  </div>
+  <p class="minimalist-button" data-add-items-target="button" data-action="click->add-items#add">Add to Kart</p>
  </div>
+
  <div class="search">
   <%= form_with(model: @location, url: items_booking_index_path, class: 'd-flex justify-content-center', method: 'get') do |f| %>
     <%= f.text_field :search_input, value: params[:search_input], class: 'minimalist-input', placeholder: 'couch'%>
