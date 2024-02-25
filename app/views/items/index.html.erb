@@ -20,7 +20,7 @@
       <p>Booking</p>
     </div>
   </div>
- <div data-controller="add-items">
+ <div data-controller="add-items" data-add-items-cart-value="<%= @kart.id %>">
   <div class="item-cards" data-add-items-target="items">
       <% @items.each do |item| %>
         <div class="item-card d-flex justify-content-center">
@@ -55,7 +55,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Add More Items</button>
-          <button type="button" class="btn btn-primary">Continue</button>
+          <button type="button" class="btn btn-primary" data-action="click->add-items#save">Continue</button>
         </div>
       </div>
     </div>
