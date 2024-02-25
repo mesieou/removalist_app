@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="add-items"
 export default class extends Controller {
   static targets = [ "items" ]
+  static values = { time: Number }
 
   // Connects to data-action="click->add-items#add"
   select(event) {
@@ -14,8 +15,9 @@ export default class extends Controller {
     const itemsSelected = this.itemsTarget.querySelectorAll('.minimalist-button-active')
     const itemsSelectedArray = Array.from(itemsSelected)
     itemsSelectedArray.forEach((item) => {
+      const itemText = item.textContent
+      const itemTime = Number(item.dataset.addItemsValue)
       debugger;
-      console.log(item.textContent)
       // find the item in the database
       // create the cart if it doesn't exist
       // add the item to the cart

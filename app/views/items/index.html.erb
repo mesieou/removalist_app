@@ -24,11 +24,44 @@
   <div class="item-cards" data-add-items-target="items">
       <% @items.each do |item| %>
         <div class="item-card d-flex justify-content-center">
-          <p class="item-button" data-add-items-target="item" data-action="click->add-items#select"> <%= item.name %></p>
+          <p class="item-button"
+             data-add-items-target="item"
+             data-action="click->add-items#select"
+             data-add-items-time-value="<%= item.estimated_total_loading_time %>">
+              <%= item.name %>
+          </p>
         </div>
       <% end %>
   </div>
-  <p class="minimalist-button" data-add-items-target="button" data-action="click->add-items#add">Add to Kart</p>
+  <!-- Button trigger modal -->
+  <button type="button"
+          class="minimalist-button"
+          data-add-items-target="button"
+          data-action="click->add-items#add"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop">
+          Add to Kart
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
  </div>
 
  <div class="search">
@@ -38,6 +71,9 @@
   <% end %>
  </div>
 </div>
+
+
+
 
 
 <%# 1. Set up the controller items_to_car %>

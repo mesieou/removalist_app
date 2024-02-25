@@ -1,6 +1,12 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   def index
+    if current_user
+      @kart = Kart.find_by(user_id: current_user.id)
+    else
+    @kart = Kart.create if @kart.nil?
+    end
+
     if params[:search_input].present?
       @items = ListOfItem.search(params[:search_input])
     else
