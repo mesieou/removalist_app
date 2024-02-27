@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get 'items/index'
+  get 'bookings/available', to: 'bookings#available', as: 'available'
+
   devise_for :users
   root to: "pages#home"
   resources :booking do

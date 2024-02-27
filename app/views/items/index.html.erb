@@ -20,58 +20,60 @@
       <p>Booking</p>
     </div>
   </div>
-  <%# search function %>
- <div class="search my-5">
-  <%= form_with(model: @location, url: items_booking_index_path, class: 'd-flex justify-content-center', method: 'get') do |f| %>
-    <%= f.text_field :search_input, value: params[:search_input], class: 'minimalist-input', placeholder: 'couch'%>
-    <%= f.submit  value: 'Search', class: 'minimalist-button w-10 mx-3'%>
-  <% end %>
- </div>
-
- <div data-controller="add-items my-3" data-add-items-cart-value="<%= @kart.id %>">
-  <div class="item-cards" data-add-items-target="items">
-      <% @items.each do |item| %>
-        <div class="item-card d-flex justify-content-center">
-          <p class="item-button"
-             data-add-items-target="item"
-             data-action="click->add-items#select"
-             data-add-items-time-value="<%= item.estimated_total_loading_time %>">
-              <%= item.name %>
-          </p>
-        </div>
+  <div class="search-and-add-items" data-controller="add-items" data-add-items-cart-value="<%= @kart.id %>">
+    <%# search function %>
+    <div class="search my-5">
+      <%= form_with(model: @location, url: items_booking_index_path, class: 'd-flex justify-content-center', method: 'get') do |f| %>
+        <%= f.text_field :search_input, value: params[:search_input], class: 'minimalist-input', placeholder: 'couch'%>
+        <%= f.submit  value: 'Search', class: 'minimalist-button w-10 mx-3'%>
       <% end %>
-  </div>
-  <!-- Button trigger modal -->
-  <div class="d-flex justify-content-center">
-    <button type="button"
-            class="minimalist-button d-flex justify-content-center"
-            data-add-items-target="button"
-            data-action="click->add-items#add"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop">
-            Add to cart
-    </button>
-  </div>
+    </div>
+    <%# add items function %>
+    <div class="my-3">
+      <div class="item-cards" data-add-items-target="items">
+          <% @items.each do |item| %>
+            <div class="item-card d-flex justify-content-center">
+              <p class="item-button"
+                data-add-items-target="item"
+                data-action="click->add-items#select"
+                data-add-items-time-value="<%= item.estimated_total_loading_time %>">
+                  <%= item.name %>
+              </p>
+            </div>
+          <% end %>
+      </div>
+      <!-- Button trigger modal -->
+      <div class="d-flex justify-content-center">
+        <button type="button"
+                class="minimalist-button d-flex justify-content-center"
+                data-add-items-target="button"
+                data-action="click->add-items#add"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">
+                Add to cart
+        </button>
+      </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Cart Summary</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" data-add-items-target="modal">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Add More Items</button>
-          <button type="button" class="btn btn-primary" data-action="click->add-items#save">Continue</button>
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Cart Summary</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" data-add-items-target="modal">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Add More Items</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-action="click->add-items#save">Continue</button>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
-
- </div>
 
 </div>
 

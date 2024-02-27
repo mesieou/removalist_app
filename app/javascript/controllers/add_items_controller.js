@@ -41,7 +41,9 @@ export default class extends Controller {
       })
       .then(response => response.json())
       .then((data) => {
-        console.log(data)
+        if (data.inserted_item) {
+          this.element.innerHTML = data.inserted_item
+        }
       })
     })
   }

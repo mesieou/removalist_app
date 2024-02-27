@@ -20,11 +20,11 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     respond_to do |format|
       if @item.save
-        format.html { redirect_to items_path }
-        format.json { render :show, status: :created, json: @item }
+        format.html { redirect_to available_path, notice: 'Items were successfully added to your kart.'}
+        format.json
       else
         format.html { render :index, status: :unprocessable_entity }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        format.json
       end
     end
   end
