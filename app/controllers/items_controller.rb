@@ -17,6 +17,19 @@ class ItemsController < ApplicationController
   end
 
   def create
-    raise
+    @item = Item.new(item_params)
+    respond_to do |format|
+      if @item.save
+        format.html { redirect_to items_path }
+        format.json { render :show, status: :created, json: @item }
+      else
+        format.html { render :index, status: :unprocessable_entity }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def item_params
+    params.require(:item).permit(:name, :estimated_total_loading_time, :kart_id)
   end
 end

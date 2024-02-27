@@ -20,7 +20,15 @@
       <p>Booking</p>
     </div>
   </div>
- <div data-controller="add-items" data-add-items-cart-value="<%= @kart.id %>">
+  <%# search function %>
+ <div class="search my-5">
+  <%= form_with(model: @location, url: items_booking_index_path, class: 'd-flex justify-content-center', method: 'get') do |f| %>
+    <%= f.text_field :search_input, value: params[:search_input], class: 'minimalist-input', placeholder: 'couch'%>
+    <%= f.submit  value: 'Search', class: 'minimalist-button w-10 mx-3'%>
+  <% end %>
+ </div>
+
+ <div data-controller="add-items my-3" data-add-items-cart-value="<%= @kart.id %>">
   <div class="item-cards" data-add-items-target="items">
       <% @items.each do |item| %>
         <div class="item-card d-flex justify-content-center">
@@ -34,14 +42,16 @@
       <% end %>
   </div>
   <!-- Button trigger modal -->
-  <button type="button"
-          class="minimalist-button"
-          data-add-items-target="button"
-          data-action="click->add-items#add"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop">
-          Add to cart
-  </button>
+  <div class="d-flex justify-content-center">
+    <button type="button"
+            class="minimalist-button d-flex justify-content-center"
+            data-add-items-target="button"
+            data-action="click->add-items#add"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop">
+            Add to cart
+    </button>
+  </div>
 
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -63,12 +73,6 @@
 
  </div>
 
- <div class="search">
-  <%= form_with(model: @location, url: items_booking_index_path, class: 'd-flex justify-content-center', method: 'get') do |f| %>
-    <%= f.text_field :search_input, value: params[:search_input], class: 'minimalist-input', placeholder: 'couch'%>
-    <%= f.submit  value: 'Search', class: 'minimalist-button w-10 mx-3'%>
-  <% end %>
- </div>
 </div>
 
 

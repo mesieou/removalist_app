@@ -18,7 +18,7 @@ export default class extends Controller {
     const modal = this.modalTarget
     const cart = Number(this.cartValue)
     itemsSelectedArray.forEach((item) => {
-      const itemText = item.textContent
+      const itemText = item.textContent.trim()
       const itemTime = Number(item.dataset.addItemsTimeValue)
       const itemHTML = `<div class="cart-item">${itemText}</div>`
       modal.insertAdjacentHTML('beforeend', itemHTML)
@@ -29,10 +29,19 @@ export default class extends Controller {
 
   save() {
     this.itemsSelected.forEach((item)=> {
+      const formData = new FormData();
+      formData.append('item[name]', item.name);
+      formData.append('item[estimated_total_loading_time]', item.estimated_total_loading_time);
+      formData.append('item[kart_id]', item.kart_id);
+
       fetch('items/', {
         method:  'POST',
         headers: { "Accept": "application/json" },
-        body: JSON.stringify(item)
+        body: formData
+      })
+      .then(response => response.json())
+      .then((data) => {
+        console.log(data)
       })
     })
   }
