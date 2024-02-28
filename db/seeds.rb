@@ -33,3 +33,32 @@ items.each do |item|
   puts "Created #{item[0]}"
 end
 puts 'All iteams created'
+#Destroying and locations
+puts 'Destroying old locations'
+Location.destroy_all
+puts 'Creating new locations'
+
+
+# Creating house to house location, single story
+locations.create!(
+  pick_up: Faker::Address.street_address,
+  drop_off: Faker::Address.street_address,
+  pick_up_type_of_place: 'house',
+  drop_off_type_of_place: 'house',
+  pick_up_number_of_stories: '1',
+  drop_off_number_of_stories: '1',
+  pick_up_stairs_or_lift: 'stairs',
+  drop_off_stairs_or_lift: 'stairs'
+  )
+#creating house to apartment location, double story
+locations.create!(
+  pick_up: Faker::Address.street_address,
+  drop_off: Faker::Address.street_address,
+  pick_up_type_of_place: 'house',
+  drop_off_type_of_place: 'apartment',
+  pick_up_number_of_stories: '1',
+  drop_off_number_of_stories: '2',
+  pick_up_stairs_or_lift: 'stairs',
+  drop_off_stairs_or_lift: 'lift'
+)
+#creating
