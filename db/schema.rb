@@ -19,18 +19,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_21_085438) do
     t.integer "duration_in_minutes"
     t.integer "price"
     t.string "status"
-    t.bigint "users_id", null: false
-    t.bigint "locations_id", null: false
-    t.bigint "services_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "location_id", null: false
     t.bigint "kart_id", null: false
+    t.bigint "service_id", null: false
+    t.bigint "user_id", null: false
     t.index ["kart_id"], name: "index_bookings_on_kart_id"
     t.index ["location_id"], name: "index_bookings_on_location_id"
-    t.index ["locations_id"], name: "index_bookings_on_locations_id"
-    t.index ["services_id"], name: "index_bookings_on_services_id"
-    t.index ["users_id"], name: "index_bookings_on_users_id"
+    t.index ["service_id"], name: "index_bookings_on_service_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -88,7 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_21_085438) do
 
   add_foreign_key "bookings", "karts"
   add_foreign_key "bookings", "locations"
-  add_foreign_key "bookings", "services", column: "services_id"
-  add_foreign_key "bookings", "users", column: "users_id"
+  add_foreign_key "bookings", "services"
+  add_foreign_key "bookings", "users"
   add_foreign_key "items", "karts"
 end

@@ -130,16 +130,15 @@ def recreate_bookings
   Booking.destroy_all
   puts 'Creating new bookings'
   5.times do
-    user = User.all.sample
     Booking.create!(
       price: rand(100..500),
       duration_in_minutes: rand(60..300),
       date_time: Faker::Time.forward(days: 23, period: :morning),
       status: ['pending', 'confirmed', 'cancelled'].sample,
-      user: user,
-      location: Location.all.sample.id,
+      location: Location.all.sample,
       service: Service.all.sample,
-      kart: Kart.all.sample
+      kart: Kart.all.sample,
+      user: User.all.sample,
     )
     puts 'Booking created'
   end
