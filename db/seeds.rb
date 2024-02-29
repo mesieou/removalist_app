@@ -130,10 +130,13 @@ def recreate_bookings
   Booking.destroy_all
   puts 'Creating new bookings'
   5.times do
+    start_time = Faker::Time.forward(days: 23, period: :morning)
+    duration_in_minutes = rand(60..300)
     Booking.create!(
       price: rand(100..500),
-      duration_in_minutes: rand(60..300),
-      date_time: Faker::Time.forward(days: 23, period: :morning),
+      duration_in_minutes: duration_in_minutes,
+      start_date_time: start_time,
+      end_date_time: start_time + duration_in_minutes.minutes,
       status: ['pending', 'confirmed', 'cancelled'].sample,
       location: Location.all.sample,
       service: Service.all.sample,
