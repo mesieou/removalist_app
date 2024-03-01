@@ -20,7 +20,7 @@ class BookingsController < ApplicationController
     time_slots = []
 
     while next_available_start_time < next_available_end_time
-      if ((next_booking_start_time - next_available_start_time) / 60 ) < (booking_duration.minutes + travel_time_from.minutes)
+      if ((next_booking_start_time - next_available_start_time) / 60 ) > (booking_duration.minutes + travel_time_from.minutes)
         available_end_date_time = (next_booking_start_time - (booking_duration.minutes + travel_time_from.minutes))
         available_start_date_time = next_available_start_time
         time_slots << [available_start_date_time, available_end_date_time]
