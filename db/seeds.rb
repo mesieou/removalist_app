@@ -24,10 +24,9 @@ ITEMS = {
   "small bags" => 0.7,
   "suitcase bags" => 3.5
 }
+
 #Method to destroy and create items in the list_of_items table
 def recreate_list_of_items
-  puts 'Destroying old items'
-  ListOfItem.destroy_all
   puts 'Creating new items'
   ITEMS.each do |item|
     ListOfItem.create!(name: item[0], estimated_total_loading_time: item[1].to_i)
@@ -39,8 +38,6 @@ end
 
 #Method to destroy and create new locations
 def recreate_locations
-  puts 'Destroying old locations'
-  Location.destroy_all
   puts 'Creating new locations'
 
    # Creating house to house location, single story
@@ -81,10 +78,6 @@ end
 #Method to destroy and create new items
 def recreate_items
   item_names = ITEMS.keys
-
-  puts 'Destroyin old items and carts'
-  Item.destroy_all
-  Kart.destroy_all
   puts 'Creating  2 karts with items'
   2.times {
     kart = Kart.create!
@@ -102,8 +95,6 @@ end
 
 #Method to destroy and create new services
 def recreate_services
-  puts 'Destroying old services'
-  Service.destroy_all
   puts 'Creating new services'
   5.times do
     Service.create!(number_of_removalists: rand(1..2), packagin: [true, false].sample)
@@ -114,8 +105,6 @@ end
 
 #Method to destroy and create new users
 def recreate_users
-  puts 'Destroying old users'
-  User.destroy_all
   puts 'Creating new users'
   5.times do
     User.create!(email: Faker::Internet.email, password: 'password')
@@ -124,16 +113,22 @@ def recreate_users
   puts 'All users created'
 end
 
+def create_date_time
+  Time.zone = 'Melbourne'
+  start_hour = 6
+  end_hour = 17
+  start_time = Faker::Time.between_dates(from: Date.tomorrow, to: Date.tomorrow + 7)
+  random_start_hour = start_time.change(hour: rand(start_hour..end_hour), min: rand(0..59))
+end
 #Method to destroy and create new bookings
 def recreate_bookings
-  puts 'Destroying old bookings'
-  Booking.destroy_all
+
   puts 'Creating new bookings'
   5.times do
-    start_time = Faker::Time.forward(days: 23, period: :morning)
+    start_time = create_date_time
     duration_in_minutes = rand(60..300)
     Booking.create!(
-      price: rand(100..500),
+      price: rand(60..300),
       duration_in_minutes: duration_in_minutes,
       start_date_time: start_time,
       end_date_time: start_time + duration_in_minutes.minutes,
@@ -148,6 +143,18 @@ def recreate_bookings
   puts 'All bookings created'
 end
 
+puts 'Destroying all models'
+puts '---------------------'
+Booking.destroy_all
+User.destroy_all
+ListOfItem.destroy_all
+Location.destroy_all
+Item.destroy_all
+Kart.destroy_all
+Service.destroy_all
+
+puts 'Creating new models'
+puts '---------------------'
 recreate_list_of_items
 recreate_locations
 recreate_items

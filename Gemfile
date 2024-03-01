@@ -7,7 +7,7 @@ ruby "3.1.2"
 gem "rails", "~> 7.0.8"
 gem 'wicked'
 gem 'faker'
-
+gem 'activesupport'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
