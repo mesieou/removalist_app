@@ -18,21 +18,28 @@ class BookingsController < ApplicationController
     next_booking_start_time = next_booking.start_date_time
     next_booking_end_time = next_booking.end_date_time
     time_slots = []
-    if (next_booking_start_time > end_day).negative?
+    if (next_booking_start_time - end_day) <= 0
       time_slots << [next_available_start_time, next_available_end_time]
       return
     end
 
     while next_available_start_time < next_available_end_time
       if ((next_booking_start_time - next_available_start_time) / 60 ) > (booking_duration.minutes + travel_time_from.minutes)
-        available_end_date_time = (next_booking_start_time - (booking_duration.minutes + travel_time_from.minutes))
+        available_end_date_time = (next_booking_start_time - (booking_duration + travel_time_from).minutes)
         available_start_date_time = next_available_start_time
         time_slots << [available_start_date_time, available_end_date_time]
       end
-      next_available_start_time = next_booking_end_time + travel_time_to.minutes
-      next_booking = next_booking.next
-      next_booking_start_time = next_booking.start_date_time
-      next_booking_end_time = next_booking.end_date_time
+      if next_booking_end_time > end_day
+        next_available_start_time += 1
+        next_booking = next_booking.next
+        next_booking_start_time = next_booking.start_date_time
+        next_booking_end_time = next_booking.end_date_time
+      else
+        next_available_start_time = (next_booking_end_time + travel_time_to).minutes
+        next_booking = next_booking.next
+        next_booking_start_time = next_booking.start_date_time
+        next_booking_end_time = next_booking.end_date_time
+      end
     end
   end
 end

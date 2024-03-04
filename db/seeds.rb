@@ -117,31 +117,47 @@ def create_date_time(days)
   Time.zone = 'Melbourne'
   start_hour = 6
   end_hour = 17
-  start_time = Faker::Time.between_dates(from: Date.tomorrow, to: Date.tomorrow + days)
+  start_time = Faker::Time.between_dates(from: Date.tomorrow + 1, to: Date.tomorrow + days)
   random_start_hour = start_time.change(hour: rand(start_hour..end_hour), min: rand(0..59))
+end
+
+def create_specific_time(start_time_in_minutes, end_time_in_minutes, duration_in_minutes)
+  Time.zone = 'Melbourne'
+  date = Date.tomorrow
+  date.change(hour: start_time_in_minutes, min: duration_in_minutes)
 end
 #Method to destroy and create new bookings
 def recreate_bookings
+  puts 'Creating 2 new bookings for tomorrow'
+  Time.zone = 'Melbourne'
+  start_time = create_specific_time(10, 12, 120)
+  duration_in_minutes = 120
+  Booking.create!(
+    price: 180,
+    duration_in_minutes: duration_in_minutes,
+    start_date_time: start_time,
+    end_date_time: start_time + duration_in_minutes.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all.sample,
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+  Booking.create!(
+    price: 120,
+    duration_in_minutes: 90,
+    start_date_time: create_specific_time(5, 6, 90),
+    end_date_time: start_time + duration_in_minutes.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all.sample,
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
 
-  puts 'Creating new bookings'
+  puts 'Creating new 10 random bookings from the day after tomorrow'
   10.times do
     start_time = create_date_time(7)
-    duration_in_minutes = rand(60..300)
-    Booking.create!(
-      price: rand(60..300),
-      duration_in_minutes: duration_in_minutes,
-      start_date_time: start_time,
-      end_date_time: start_time + duration_in_minutes.minutes,
-      status: ['pending', 'confirmed', 'cancelled'].sample,
-      location: Location.all.sample,
-      service: Service.all.sample,
-      kart: Kart.all.sample,
-      user: User.all.sample,
-    )
-    puts 'Booking created'
-  end
-  2.times do
-    start_time = create_date_time(0)
     duration_in_minutes = rand(60..300)
     Booking.create!(
       price: rand(60..300),
