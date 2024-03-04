@@ -113,19 +113,19 @@ def recreate_users
   puts 'All users created'
 end
 
-def create_date_time
+def create_date_time(days)
   Time.zone = 'Melbourne'
   start_hour = 6
   end_hour = 17
-  start_time = Faker::Time.between_dates(from: Date.tomorrow, to: Date.tomorrow + 7)
+  start_time = Faker::Time.between_dates(from: Date.tomorrow, to: Date.tomorrow + days)
   random_start_hour = start_time.change(hour: rand(start_hour..end_hour), min: rand(0..59))
 end
 #Method to destroy and create new bookings
 def recreate_bookings
 
   puts 'Creating new bookings'
-  5.times do
-    start_time = create_date_time
+  10.times do
+    start_time = create_date_time(7)
     duration_in_minutes = rand(60..300)
     Booking.create!(
       price: rand(60..300),
@@ -140,6 +140,23 @@ def recreate_bookings
     )
     puts 'Booking created'
   end
+  2.times do
+    start_time = create_date_time(0)
+    duration_in_minutes = rand(60..300)
+    Booking.create!(
+      price: rand(60..300),
+      duration_in_minutes: duration_in_minutes,
+      start_date_time: start_time,
+      end_date_time: start_time + duration_in_minutes.minutes,
+      status: ['pending', 'confirmed', 'cancelled'].sample,
+      location: Location.all.sample,
+      service: Service.all.sample,
+      kart: Kart.all.sample,
+      user: User.all.sample,
+    )
+    puts 'Booking created'
+  end
+
   puts 'All bookings created'
 end
 
