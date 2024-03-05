@@ -8,11 +8,11 @@ class BookingsController < ApplicationController
 
   def create_available_slots(travel_time_to, travel_time_from, booking_duration)
     Time.zone = 'Melbourne'
-    next_day = DateTime.now + 1
+    next_day =  Date.tomorrow.to_time
     end_day = next_day
     next_available_start_time = next_day.change(hour: 6, min: 0, sec: 0).in_time_zone
     next_available_end_time = end_day.change(hour: 17, min: 0, sec: 0).in_time_zone
-    bookings_ordered = Booking.where('start_date_time >= ?', next_day).order(:start_date_time)
+    bookings_ordered = Booking.where('start_date_time >= ?', next_available_start_time).order(:start_date_time)
 
     next_booking = bookings_ordered.first
     next_booking_start_time = next_booking.start_date_time
