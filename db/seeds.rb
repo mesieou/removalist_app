@@ -121,33 +121,34 @@ def create_date_time(days)
   random_start_hour = start_time.change(hour: rand(start_hour..end_hour), min: rand(0..59))
 end
 
-def create_specific_time(start_time_in_minutes, end_time_in_minutes, duration_in_minutes)
+def create_specific_start_time(start_time_in_minutes)
   Time.zone = 'Melbourne'
-  date = Date.tomorrow
-  date.change(hour: start_time_in_minutes, min: duration_in_minutes)
+  date = Date.tomorrow.to_time
+  date.change(hour: start_time_in_minutes)
 end
-#Method to destroy and create new bookings
+#Creating a specific booking for tomorrow at 10 am
 def recreate_bookings
   puts 'Creating 2 new bookings for tomorrow'
   Time.zone = 'Melbourne'
-  start_time = create_specific_time(10, 12, 120)
-  duration_in_minutes = 120
+  start_time_10_am = create_specific_start_time(10)
   Booking.create!(
     price: 180,
-    duration_in_minutes: duration_in_minutes,
-    start_date_time: start_time,
-    end_date_time: start_time + duration_in_minutes.minutes,
+    duration_in_minutes: 120,
+    start_date_time: start_time_10_am,
+    end_date_time: start_time_10_am + 120.minutes,
     status: ['pending', 'confirmed', 'cancelled'].sample,
     location: Location.all.sample,
     service: Service.all.sample,
     kart: Kart.all.sample,
     user: User.all.sample,
   )
+  #Creating a specific booking for tomorrow at 5 pm
+  start_time_5_pm = create_specific_start_time(17)
   Booking.create!(
     price: 120,
     duration_in_minutes: 90,
-    start_date_time: create_specific_time(5, 6, 90),
-    end_date_time: start_time + duration_in_minutes.minutes,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 90.minutes,
     status: ['pending', 'confirmed', 'cancelled'].sample,
     location: Location.all.sample,
     service: Service.all.sample,
