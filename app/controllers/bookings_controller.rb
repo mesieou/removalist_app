@@ -47,13 +47,12 @@ class BookingsController < ApplicationController
   end
 
   def display_available_slots
-    travel_time_to = 30
+    travel_time_to = 20
     travel_time_from = 30
     booking_duration = 120
     @day_slots = []
     (0..6).to_a.each do |day|
       create_available_slots(travel_time_to, travel_time_from, booking_duration, day)
     end
-
   end
 end
