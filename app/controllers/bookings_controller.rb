@@ -17,37 +17,42 @@ class BookingsController < ApplicationController
     bookings_ordered = Booking.where('start_date_time >= ?', next_available_start_time).order(:start_date_time)
 
     next_booking = bookings_ordered.first
-    next_booking_start_time = next_booking.start_date_time
-    next_booking_end_time = next_booking.end_date_time
-    time_slots = []
-    count = 0
-    if (next_booking_start_time - end_day) <= 0 && next_booking.present?
-      time_slots << [next_available_start_time, next_available_end_time]
+    if !next_booking.nil?
+     next_booking_start_time = next_booking.start_date_time
+     next_booking_end_time = next_booking.end_date_time
+     time_slots = []
+     count = 0
+     if (next_booking_start_time - end_day) <= 0 && next_booking.present?
+       time_slots << [next_available_start_time, next_available_end_time]
+     else
+       while next_available_start_time < next_available_end_time && next_booking.present?
+         if ((next_booking_start_time - next_available_start_time) / 60 ).minutes > (booking_duration.minutes + travel_time_to.minutes)
+           available_end_date_time = next_booking_start_time - travel_time_to.minutes
+           available_start_date_time = next_available_start_time
+           time_slots << [available_start_date_time, available_end_date_time]
+         end
+         if next_booking_end_time > next_available_end_time
+           next_available_start_time += 1.day
+           count += 1
+           next_booking = bookings_ordered[count]
+           return time_slots if next_booking.nil?
+           next_booking_start_time = next_booking.start_date_time
+           next_booking_end_time = next_booking.end_date_time
+         else
+           next_available_start_time = (next_booking_end_time + travel_time_from.minutes)
+           count += 1
+           next_booking = bookings_ordered[count]
+           return time_slots if next_booking.nil?
+           next_booking_start_time = next_booking.start_date_time
+           next_booking_end_time = next_booking.end_date_time
+         end
+       end
+     end
+     puts time_slots
+     time_slots
     else
-      while next_available_start_time < next_available_end_time && next_booking.present?
-        if ((next_booking_start_time - next_available_start_time) / 60 ).minutes > (booking_duration.minutes + travel_time_to.minutes)
-          available_end_date_time = next_booking_start_time - travel_time_to.minutes
-          available_start_date_time = next_available_start_time
-          time_slots << [available_start_date_time, available_end_date_time]
-        end
-        if next_booking_end_time > next_available_end_time
-          next_available_start_time += 1.day
-          count += 1
-          next_booking = bookings_ordered[count]
-          return time_slots if next_booking.nil?
-          next_booking_start_time = next_booking.start_date_time
-          next_booking_end_time = next_booking.end_date_time
-        else
-          next_available_start_time = (next_booking_end_time + travel_time_from.minutes)
-          count += 1
-          next_booking = bookings_ordered[count]
-          return time_slots if next_booking.nil?
-          next_booking_start_time = next_booking.start_date_time
-          next_booking_end_time = next_booking.end_date_time
-        end
-      end
+      time_slots
     end
-    time_slots
   end
 
   def display_available_slots
