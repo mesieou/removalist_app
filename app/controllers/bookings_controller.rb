@@ -4,8 +4,10 @@ class BookingsController < ApplicationController
   end
   def available
     @bookings = Booking.all
+    @slots = display_available_slots()
   end
 
+  private
   def create_available_slots(travel_time_to, travel_time_from, booking_duration, day)
     Time.zone = 'Melbourne'
     next_day =  Date.tomorrow.to_time + day.day
