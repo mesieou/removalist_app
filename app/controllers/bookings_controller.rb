@@ -21,12 +21,11 @@ class BookingsController < ApplicationController
     next_booking_end_time = next_booking.end_date_time
     time_slots = []
     count = 0
-    if (next_booking_start_time - end_day) <= 0
+    if (next_booking_start_time - end_day) <= 0 && next_booking.present?
       time_slots << [next_available_start_time, next_available_end_time]
-      return
     else
-      while next_available_start_time < next_available_end_time
-        if ((next_booking_start_time - next_available_start_time) / 60 ) > (booking_duration.minutes + travel_time_to.minutes)
+      while next_available_start_time < next_available_end_time && next_booking.present?
+        if ((next_booking_start_time - next_available_start_time) / 60 ).minutes > (booking_duration.minutes + travel_time_to.minutes)
           available_end_date_time = next_booking_start_time - travel_time_to.minutes
           available_start_date_time = next_available_start_time
           time_slots << [available_start_date_time, available_end_date_time]
@@ -35,11 +34,14 @@ class BookingsController < ApplicationController
           next_available_start_time += 1.day
           count += 1
           next_booking = bookings_ordered[count]
+          return time_slots if next_booking.nil?
           next_booking_start_time = next_booking.start_date_time
           next_booking_end_time = next_booking.end_date_time
         else
           next_available_start_time = (next_booking_end_time + travel_time_from.minutes)
+          count += 1
           next_booking = bookings_ordered[count]
+          return time_slots if next_booking.nil?
           next_booking_start_time = next_booking.start_date_time
           next_booking_end_time = next_booking.end_date_time
         end
@@ -52,9 +54,10 @@ class BookingsController < ApplicationController
     travel_time_to = 20
     travel_time_from = 30
     booking_duration = 120
-    @day_slots = []
-    (0..6).to_a.each do |day|
-      create_available_slots(travel_time_to, travel_time_from, booking_duration, day)
+    day_slots = []
+    (1..6).to_a.each do |day|
+      day_slots << create_available_slots(travel_time_to, travel_time_from, booking_duration, day)
     end
+    day_slots
   end
 end
