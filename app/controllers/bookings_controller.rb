@@ -53,7 +53,7 @@ class BookingsController < ApplicationController
         next_booking_end_time = next_booking.end_date_time
       end
     end
-     time_slots
+    time_slots
     else
       time_slots
     end
