@@ -27,9 +27,13 @@
       <h3 class="w-auto m-0"> <%= day[0][0].strftime('%A') %></h3>
       <p class="w-auto"> <%= day[0][0].strftime('%d %b') %></p>
       <% day.each do |slot| %>
-        <div class="times p-2 border m-2">
-          <p>From: <%= slot[0].strftime('%H:%M') %></p>
-          <p>To: <%= slot[1].strftime('%H:%M') %></p>
+        <div class="times border rounded slot p-3 my-3 ">
+          <div class=" d-flex">
+            <p class="m-0"><%= slot[0].strftime('%H:%M') %> - </p>
+            <p class="m-0"><%= slot[1].strftime('%H:%M') %></p>
+          </div>
+          <p>Driver: Juan Bernal</p>
+          <h3 class="text-center">$352</h3>
         </div>
       <% end %>
     </div>

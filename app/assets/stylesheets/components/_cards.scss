@@ -22,3 +22,11 @@
   margin-top: 120px;
   margin-bottom: 12px;
 }
+
+.times {
+  &:hover {
+    background-color: #005b82;
+    color: white;
+    transition: 0.3s;
+  }
+}
