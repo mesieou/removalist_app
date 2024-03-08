@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row"  data-controller="hello">
    <% @slots.each do |day| %>
     <div class="col-2 my-5">
       <h3 class="w-auto m-0"> <%= day[0][0].strftime('%A') %></h3>

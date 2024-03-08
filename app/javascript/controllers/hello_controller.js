@@ -7,6 +7,7 @@ export default class extends Controller {
   static values = { api: String}
 
   connect() {
+    console.log('connected')
     const loader = new Loader({
       apiKey: this.apiValue,
       version: "quarterly",
@@ -26,20 +27,21 @@ export default class extends Controller {
   }
 
   distance () {
-    const pickUp = this.pick_upTarget.value;
-    const dropOff = this.drop_offTarget.value;
-    var directionsService = new google.maps.DirectionsService();
-    let request = {
-      origin: pickUp,
-      destination: dropOff,
-      travelMode: 'DRIVING'
-    }
+    console.log('connected')
+    // const pickUp = this.pick_upTarget.value;
+    // const dropOff = this.drop_offTarget.value;
+    // var directionsService = new google.maps.DirectionsService();
+    // let request = {
+    //   origin: pickUp,
+    //   destination: dropOff,
+    //   travelMode: 'DRIVING'
+    // }
 
-    directionsService.route(request, function(result, status){
-      if (status == 'OK') {
-        console.log(result.routes[0].legs[0].distance.text)
-        console.log(result.routes[0].legs[0].duration.text)
-      }
-    });
+    // directionsService.route(request, function(result, status){
+    //   if (status == 'OK') {
+    //     console.log(result.routes[0].legs[0].distance.text)
+    //     console.log(result.routes[0].legs[0].duration.text)
+    //   }
+    // });
   }
 }
