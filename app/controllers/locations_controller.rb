@@ -7,6 +7,7 @@ class LocationsController < ApplicationController
 
   def new
     @location = Location.new
+    @api = ENV["GOOGLEAPI"]
   end
 
   def create

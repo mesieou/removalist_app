@@ -6,6 +6,7 @@ class BookingsController < ApplicationController
     @bookings = Booking.all
     @slots = display_available_slots()
     @kart = Kart.last
+    raise
   end
 
   private
