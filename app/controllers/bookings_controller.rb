@@ -5,6 +5,7 @@ class BookingsController < ApplicationController
   def available
     @bookings = Booking.all
     @slots = display_available_slots()
+    @kart = Kart.last
   end
 
   private
