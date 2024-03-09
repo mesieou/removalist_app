@@ -29,21 +29,7 @@ class BookingsController < ApplicationController
     bookings_ordered = get_bookings_ordered(day)
     todays_bookings = get_bookings_ordered(day)
     next_booking = bookings_ordered.first
-    home_address = "1 Aberdeen Road, Blackburn South VIC"
 
-    if next_booking == todays_bookings.first && todays_bookings.length == 1
-      start_address = home_address
-      end_address =  home_address
-    elsif next_booking == todays_bookings.first && todays_bookings.length >= 1
-      start_address = home_address
-      end_address = next_booking.location.address
-    elsif next_booking !== todays_bookings.first && todays_bookings.length >= 1 && next_booking !== todays_bookings.last
-      start_address = previous_booking.location.address
-      end_address = next_booking.location.address
-    elsif next_booking == todays_bookings.last && todays_bookings.length >= 1
-      start_address = previous_booking.location.address
-      end_address = home_address
-    end
     if !next_booking.nil?
      next_booking_start_time = next_booking.start_date_time
      next_booking_end_time = next_booking.end_date_time

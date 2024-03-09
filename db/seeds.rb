@@ -117,20 +117,20 @@ def create_date_time(days)
   Time.zone = 'Melbourne'
   start_hour = 6
   end_hour = 17
-  start_time = Faker::Time.between_dates(from: Date.tomorrow + 1, to: Date.tomorrow + days)
+  start_time = Faker::Time.between_dates(from: Date.tomorrow + 3, to: Date.tomorrow + days)
   random_start_hour = start_time.change(hour: rand(start_hour..end_hour), min: rand(0..59))
 end
 
-def create_specific_start_time(start_time_in_minutes)
+def create_specific_start_time(start_time_in_minutes, day)
   Time.zone = 'Melbourne'
-  date = Date.tomorrow.to_time
+  date = Date.tomorrow.to_time + 1.day
   date.change(hour: start_time_in_minutes)
 end
 #Creating a specific booking for tomorrow at 10 am
 def recreate_bookings
   puts 'Creating 2 new bookings for tomorrow'
   Time.zone = 'Melbourne'
-  start_time_10_am = create_specific_start_time(10)
+  start_time_10_am = create_specific_start_time(10, 0)
   Booking.create!(
     price: 180,
     duration_in_minutes: 120,
@@ -143,7 +143,7 @@ def recreate_bookings
     user: User.all.sample,
   )
   #Creating a specific booking for tomorrow at 5 pm
-  start_time_5_pm = create_specific_start_time(17)
+  start_time_5_pm = create_specific_start_time(17, 0)
   Booking.create!(
     price: 120,
     duration_in_minutes: 90,
@@ -156,9 +156,64 @@ def recreate_bookings
     user: User.all.sample,
   )
 
+  #Creating a specific booking for the day after tomorrow. Only one booking for the day
+  puts 'Creating 1 new booking for the day after tomorrow'
+  start_time_5_pm = create_specific_start_time(7, 1)
+  Booking.create!(
+    price: 300,
+    duration_in_minutes: 120,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 90.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all.sample,
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+
+  #Creating a specific booking for +2 days after tomorrow. 3 bookings for the day
+  puts 'Creating 3 new bookings for +2 days after tomorrow'
+  start_time_5_pm = create_specific_start_time(8, 2)
+  Booking.create!(
+    price: 100,
+    duration_in_minutes: 60,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 90.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all.sample,
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+  start_time_5_pm = create_specific_start_time(1, 2)
+  Booking.create!(
+    price: 250,
+    duration_in_minutes: 140,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 90.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all.sample,
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+  start_time_5_pm = create_specific_start_time(4, 2)
+  Booking.create!(
+    price: 300,
+    duration_in_minutes: 120,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 90.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all.sample,
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+
+  #Creating a specific booking for +3 days after tomorrow. 10 random bookings
   puts 'Creating new 10 random bookings from the day after tomorrow'
   10.times do
-    start_time = create_date_time(7)
+    start_time = create_date_time(4)
     duration_in_minutes = rand(60..300)
     Booking.create!(
       price: rand(60..300),
