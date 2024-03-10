@@ -35,15 +35,6 @@ class ItemsController < ApplicationController
     home_address = "1 Aberdeen Road, Blackburn South VIC"
     new_address_pick_up = Location.last.pick_up
     new_address_drop_off = Location.last.drop_off
-
-    bookings = get_bookings_ordered(0)
-
-    next_booking_pick_up = bookings.first.location.pick_up
-    next_booking_drop_off = bookings.first.location.drop_off
-
-    after_next_booking_pick_up = bookings.second.location.pick_up
-    after_next_booking_drop_off = bookings.second.location.drop_off
-
     distance_matrix_array = []
 
     (0.6).to_a.each do |day|
@@ -69,8 +60,10 @@ class ItemsController < ApplicationController
 
       # 1 booking
       elsif todays_bookings.count == 1
-       #before 1st booking
-       distance_matrix_request_1 = {
+        next_booking_pick_up = todays_bookings.first.location.pick_up
+        next_booking_drop_off = todays_bookings.first.location.drop_off
+        #before 1st booking
+        distance_matrix_request_1 = {
         origins: [next_booking_pick_up],
         destinations: [new_address_drop_off, home_address],
         travelMode: 'DRIVING',
@@ -79,9 +72,9 @@ class ItemsController < ApplicationController
         unitSystem: UnitSystem,
         avoidHighways: Boolean,
         avoidTolls: Boolean
-       }
-       #after 1st booking
-       distance_matrix_request_2 = {
+        }
+        #after 1st booking
+        distance_matrix_request_2 = {
         origins: [next_booking_drop_off],
         destinations: [new_address_pick_up],
         travelMode: 'DRIVING',
@@ -90,8 +83,8 @@ class ItemsController < ApplicationController
         unitSystem: UnitSystem,
         avoidHighways: Boolean,
         avoidTolls: Boolean
-       }
-       distance_matrix_request_3 = {
+        }
+        distance_matrix_request_3 = {
         origins: [new_address_drop_off],
         destinations: [home_address],
         travelMode: 'DRIVING',
@@ -100,45 +93,89 @@ class ItemsController < ApplicationController
         unitSystem: UnitSystem,
         avoidHighways: Boolean,
         avoidTolls: Boolean
-       }
-       distance_matrix_array << [ distance_matrix_request_1, distance_matrix_request_2, distance_matrix_request_3 ]
+        }
+        distance_matrix_array << [ distance_matrix_request_1, distance_matrix_request_2, distance_matrix_request_3 ]
 
       # 2+ bookings
       else
-        distance_matrix_request_1 = {
-        origins: [next_booking_drop_off],
-        destinations: [new_address_pick_up],
-        travelMode: 'DRIVING',
-        transitOptions: TransitOptions,
-        drivingOptions: DrivingOptions,
-        unitSystem: UnitSystem,
-        avoidHighways: Boolean,
-        avoidTolls: Boolean
-        }
-        distance_matrix_request_2 = {
-        origins: [new_address_drop_off],
-        destinations: [after_next_booking_pick_up],
-        travelMode: 'DRIVING',
-        transitOptions: TransitOptions,
-        drivingOptions: DrivingOptions,
-        unitSystem: UnitSystem,
-        avoidHighways: Boolean,
-        avoidTolls: Boolean
-        }
-        distance_matrix_array << [ distance_matrix_request_1, distance_matrix_request_2 ]
-      end
-    end
-  end
+        todays_bookings.each_with_index do |booking, index|
+          if booking != todays_bookings.last && booking != todays_bookings.first
+            next_booking_pick_up = todays_bookings[index + 1].location.pick_up
+            next_booking_drop_off = todays_bookings[index + 1].location.drop_off
+            after_next_booking_pick_up = todays_bookings[index + 2].location.pick_up
+            after_next_booking_drop_off = todays_bookings[index + 2].location.drop_off
 
-  def get_bookings_ordered(day)
-    next_available_start_time = set_available_times(day)[0]
-    bookings_ordered = Booking.where('start_date_time >= ?', next_available_start_time).order(:start_date_time)
+            distance_matrix_request_1 = {
+            origins: [next_booking_drop_off],
+            destinations: [new_address_pick_up],
+            travelMode: 'DRIVING',
+            transitOptions: TransitOptions,
+            drivingOptions: DrivingOptions,
+            unitSystem: UnitSystem,
+            avoidHighways: Boolean,
+            avoidTolls: Boolean
+            }
+            distance_matrix_request_2 = {
+            origins: [new_address_drop_off],
+            destinations: [after_next_booking_pick_up],
+            travelMode: 'DRIVING',
+            transitOptions: TransitOptions,
+            drivingOptions: DrivingOptions,
+            unitSystem: UnitSystem,
+            avoidHighways: Boolean,
+            avoidTolls: Boolean
+            }
+            distance_matrix_array << [ distance_matrix_request_1, distance_matrix_request_2 ]
+          elsif booking == todays_bookings.first
+            next_booking_pick_up = todays_bookings.first.location.pick_up
+            next_booking_drop_off = todays_bookings.first.location.drop_off
+            #before 1st booking
+            distance_matrix_request_1 = {
+              origins: [next_booking_pick_up],
+              destinations: [new_address_drop_off, home_address],
+              travelMode: 'DRIVING',
+              transitOptions: TransitOptions,
+              drivingOptions: DrivingOptions,
+              unitSystem: UnitSystem,
+              avoidHighways: Boolean,
+              avoidTolls: Boolean
+            }
+            distance_matrix_array << distance_matrix_request_1
+          elsif booking == todays_bookings.last
+            next_booking_pick_up = todays_bookings.last.location.pick_up
+            next_booking_drop_off = todays_bookings.last.location.drop_off
+            #after 1st booking
+            distance_matrix_request_1 = {
+              origins: [next_booking_drop_off],
+              destinations: [new_address_pick_up],
+              travelMode: 'DRIVING',
+              transitOptions: TransitOptions,
+              drivingOptions: DrivingOptions,
+              unitSystem: UnitSystem,
+              avoidHighways: Boolean,
+              avoidTolls: Boolean
+             }
+            distance_matrix_request_2 = {
+              origins: [new_address_drop_off],
+              destinations: [home_address],
+              travelMode: 'DRIVING',
+              transitOptions: TransitOptions,
+              drivingOptions: DrivingOptions,
+              unitSystem: UnitSystem,
+              avoidHighways: Boolean,
+              avoidTolls: Boolean
+             }
+            distance_matrix_array << [ distance_matrix_request_1, distance_matrix_request_2 ]
+          end
+
+        end
+    end
   end
 
   def get_todays_bookings(day)
     next_available_start_time = set_available_times(day)[0]
     next_available_end_time = set_available_times(day)[1]
-    todays_bookings = Booking.where('start_date_time >= ? AND start_date_time <= ?', next_available_start_time, next_available_end_time)
+    todays_bookings = Booking.where('start_date_time >= ? AND start_date_time <= ?', next_available_start_time, next_available_end_time).order(:start_date_time)
   end
 
   def item_params
