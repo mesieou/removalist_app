@@ -123,7 +123,7 @@ end
 
 def create_specific_start_time(start_time_in_minutes, day)
   Time.zone = 'Melbourne'
-  date = Date.tomorrow.to_time + 1.day
+  date = Date.tomorrow.to_time + day.day
   date.change(hour: start_time_in_minutes)
 end
 #Creating a specific booking for tomorrow at 10 am
