@@ -24,6 +24,25 @@ ITEMS = {
   "small bags" => 0.7,
   "suitcase bags" => 3.5
 }
+ADRESSES = [  "123 Smith Street, Melbourne VIC 3000",
+  "142 Gatehouse Street  Parkville",
+  "107 Park Street  South Yarra",
+  "1 Aberdeen Road, Blackburn South VIC",
+  "482 Lygon Street  Carlton",
+  "1/1-3 St Kilda Road  St Kilda",
+  "8 wellington road Box Hill",
+  "133 drop street Footscray",
+  "175 Kelletts road Rowville",
+  "1 caledonian lane Melbourne",
+  "2 queens parade ashwood",
+  "371 harkness road harkness",
+  "463 victoria street abbotsford",
+  "2 freeman street ringwood east",
+  "33 hartington drive wantirna",
+  "33 harcourt street hawthorn east",
+  "33 halliday street mount waverley",
+  "33 harrington avenue balwyn north"
+]
 
 #Method to destroy and create items in the list_of_items table
 def recreate_list_of_items
@@ -42,8 +61,8 @@ def recreate_locations
 
    # Creating house to house location, single story
   Location.create!(
-    pick_up: Faker::Address.street_address,
-    drop_off: Faker::Address.street_address,
+    pick_up: ADRESSES.sample,
+    drop_off: ADRESSES.sample,
     pick_up_type_of_place: 'house',
     drop_off_type_of_place: 'house',
     pick_up_number_of_stories: '1',
@@ -53,8 +72,8 @@ def recreate_locations
     )
    #creating house to apartment location
   Location.create!(
-    pick_up: Faker::Address.street_address,
-    drop_off: Faker::Address.street_address,
+    pick_up: ADRESSES.sample,
+    drop_off: ADRESSES.sample,
     pick_up_type_of_place: 'house',
     drop_off_type_of_place: 'apartment',
     pick_up_number_of_stories: '1',
@@ -64,8 +83,8 @@ def recreate_locations
   )
    #creating apartment to apartment location and stairs
   Location.create!(
-    pick_up: Faker::Address.street_address,
-    drop_off: Faker::Address.street_address,
+    pick_up: ADRESSES.sample,
+    drop_off: ADRESSES.sample,
     pick_up_type_of_place: 'apartment',
     drop_off_type_of_place: 'apartment',
     pick_up_number_of_stories: '2',
@@ -73,6 +92,19 @@ def recreate_locations
     pick_up_stairs_or_lift: 'stairs',
     drop_off_stairs_or_lift: 'stairs'
   )
+  #creating randonm location with each address in the array
+  ADRESSES.each do |address|
+    Location.create!(
+      pick_up: address,
+      drop_off: ADRESSES.sample,
+      pick_up_type_of_place: 'apartment',
+      drop_off_type_of_place: 'apartment',
+      pick_up_number_of_stories: '2',
+      drop_off_number_of_stories: '2',
+      pick_up_stairs_or_lift: 'stairs',
+      drop_off_stairs_or_lift: 'stairs'
+    )
+  end
 end
 
 #Method to destroy and create new items
