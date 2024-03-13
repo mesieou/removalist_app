@@ -49,18 +49,18 @@ class ItemsController < ApplicationController
 
       # Added distance matrix object when no bookings
       if todays_bookings.count == 0
-        pairs = []
+        days = []
         distance_matrix_request_1 = {
         origins: [home_address],
         destinations: [new_address_pick_up, new_address_drop_off],
         travelMode: 'DRIVING'
         }
-        pairs << { "pair #{index}" => [distance_matrix_request_1] }
-        distance_matrix_array << pairs
+        days << { "day #{index + 1}" => [distance_matrix_request_1] }
+        distance_matrix_array << days
 
       # Added distance matrix object when 1 booking
       elsif todays_bookings.count == 1
-        pairs = []
+        days = []
         next_booking_pick_up = todays_bookings.first.location.pick_up
         next_booking_drop_off = todays_bookings.first.location.drop_off
         #before 1st booking
@@ -80,18 +80,20 @@ class ItemsController < ApplicationController
         destinations: [home_address],
         travelMode: 'DRIVING'
         }
-        pairs << { "pair #{index}" => [distance_matrix_request_1, distance_matrix_request_2, distance_matrix_request_3] }
-        distance_matrix_array << pairs
+        days << { "day #{index + 1}" => [distance_matrix_request_1, distance_matrix_request_2, distance_matrix_request_3] }
+        distance_matrix_array << days
       # Added distance matrix object when 2 or more bookings
-      else
-        todays_bookings.each_with_index do |booking, index|
-          pairs = []
+      elsif todays_bookings.count >= 1
+        index = index + 1
+        distance_matrix_requests = []
+        days = []
+        todays_bookings.each_with_index do |booking, second_index|
           if booking != todays_bookings.last && booking != todays_bookings.first
-            next_booking_pick_up = todays_bookings[index].location.pick_up
-            next_booking_drop_off = todays_bookings[index].location.drop_off
+            next_booking_pick_up = todays_bookings[second_index].location.pick_up
+            next_booking_drop_off = todays_bookings[second_index].location.drop_off
             if todays_bookings.length > 3
-              after_next_booking_pick_up = todays_bookings[index + 1].location.pick_up
-              after_next_booking_drop_off = todays_bookings[index + 1].location.drop_off
+              after_next_booking_pick_up = todays_bookings[second_index + 1].location.pick_up
+              after_next_booking_drop_off = todays_bookings[second_index + 1].location.drop_off
             end
             distance_matrix_request_1 = {
             origins: [next_booking_drop_off],
@@ -103,7 +105,8 @@ class ItemsController < ApplicationController
             destinations: [after_next_booking_pick_up],
             travelMode: 'DRIVING'
             }
-            pairs << { "pair #{index}" => [distance_matrix_request_1, distance_matrix_request_2] }
+            distance_matrix_requests << distance_matrix_request_1
+            distance_matrix_requests << distance_matrix_request_2
           elsif booking == todays_bookings.first
             next_booking_pick_up = todays_bookings.first.location.pick_up
             next_booking_drop_off = todays_bookings.first.location.drop_off
@@ -113,7 +116,7 @@ class ItemsController < ApplicationController
               destinations: [new_address_drop_off, home_address],
               travelMode: 'DRIVING'
             }
-            pairs << { "pair #{index}" => [distance_matrix_request_1] }
+            distance_matrix_requests << distance_matrix_request_1
           elsif booking == todays_bookings.last
             next_booking_pick_up = todays_bookings.last.location.pick_up
             next_booking_drop_off = todays_bookings.last.location.drop_off
@@ -128,10 +131,12 @@ class ItemsController < ApplicationController
               destinations: [home_address],
               travelMode: 'DRIVING'
              }
-            pairs << { "pair #{index}" => [distance_matrix_request_1, distance_matrix_request_2] }
+            distance_matrix_requests << distance_matrix_request_1
+            distance_matrix_requests << distance_matrix_request_2
           end
-          distance_matrix_array << pairs
         end
+        days << { "day #{index}" => distance_matrix_requests }
+        distance_matrix_array << days
       end
     end
     distance_matrix_array

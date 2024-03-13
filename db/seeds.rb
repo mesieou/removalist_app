@@ -25,12 +25,12 @@ ITEMS = {
   "suitcase bags" => 3.5
 }
 ADRESSES = [  "123 Smith Street, Melbourne VIC 3000",
-  "142 Gatehouse Street  Parkville",
-  "107 Park Street  South Yarra",
+  "142 Gatehouse Street, Parkville",
+  "107 Park Street, South Yarra",
   "1 Aberdeen Road, Blackburn South VIC",
-  "482 Lygon Street  Carlton",
-  "1/1-3 St Kilda Road  St Kilda",
-  "8 wellington road Box Hill",
+  "482 Lygon Street, Carlton",
+  "1/1-3 St Kilda Road, St Kilda",
+  "8 wellington road, Box Hill",
   "133 drop street Footscray",
   "175 Kelletts road Rowville",
   "1 caledonian lane Melbourne",
