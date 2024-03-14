@@ -55,12 +55,11 @@ class ItemsController < ApplicationController
         destinations: [new_address_pick_up, new_address_drop_off],
         travelMode: 'DRIVING'
         }
-        days << { "day #{index + 1}" => [distance_matrix_request_1] }
-        distance_matrix_array << days
+        distance_matrix_array << { "day #{index + 1}" => [distance_matrix_request_1] }
 
       # Added distance matrix object when 1 booking
       elsif todays_bookings.count == 1
-        days = []
+        options = []
         next_booking_pick_up = todays_bookings.first.location.pick_up
         next_booking_drop_off = todays_bookings.first.location.drop_off
         #before 1st booking
@@ -80,13 +79,13 @@ class ItemsController < ApplicationController
         destinations: [home_address],
         travelMode: 'DRIVING'
         }
-        days << { "day #{index + 1}" => [distance_matrix_request_1, distance_matrix_request_2, distance_matrix_request_3] }
-        distance_matrix_array << days
+        options << [ distance_matrix_request_1]
+        options << [ distance_matrix_request_2, distance_matrix_request_3]
+        distance_matrix_array << { "day #{index + 1}" => options }
       # Added distance matrix object when 2 or more bookings
       elsif todays_bookings.count >= 1
         index = index + 1
-        distance_matrix_requests = []
-        days = []
+        options = []
         todays_bookings.each_with_index do |booking, second_index|
           if booking != todays_bookings.last && booking != todays_bookings.first
             next_booking_pick_up = todays_bookings[second_index].location.pick_up
@@ -105,8 +104,7 @@ class ItemsController < ApplicationController
             destinations: [after_next_booking_pick_up],
             travelMode: 'DRIVING'
             }
-            distance_matrix_requests << distance_matrix_request_1
-            distance_matrix_requests << distance_matrix_request_2
+            options << [ distance_matrix_request_1, distance_matrix_request_2]
           elsif booking == todays_bookings.first
             next_booking_pick_up = todays_bookings.first.location.pick_up
             next_booking_drop_off = todays_bookings.first.location.drop_off
@@ -116,7 +114,7 @@ class ItemsController < ApplicationController
               destinations: [new_address_drop_off, home_address],
               travelMode: 'DRIVING'
             }
-            distance_matrix_requests << distance_matrix_request_1
+            options << distance_matrix_request_1
           elsif booking == todays_bookings.last
             next_booking_pick_up = todays_bookings.last.location.pick_up
             next_booking_drop_off = todays_bookings.last.location.drop_off
@@ -131,12 +129,10 @@ class ItemsController < ApplicationController
               destinations: [home_address],
               travelMode: 'DRIVING'
              }
-            distance_matrix_requests << distance_matrix_request_1
-            distance_matrix_requests << distance_matrix_request_2
+            options << [ distance_matrix_request_1, distance_matrix_request_2 ]
           end
         end
-        days << { "day #{index}" => distance_matrix_requests }
-        distance_matrix_array << days
+        distance_matrix_array << { "day #{index}" => options }
       end
     end
     distance_matrix_array
