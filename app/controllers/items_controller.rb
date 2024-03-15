@@ -145,7 +145,6 @@ class ItemsController < ApplicationController
   end
 
   def set_available_times(day)
-    Time.zone = 'Melbourne'
     end_day =  Date.tomorrow.to_time + day.day
     next_available_start_time = end_day.change(hour: 6, min: 0, sec: 0).in_time_zone
     next_available_end_time = end_day.change(hour: 17, min: 0, sec: 0).in_time_zone

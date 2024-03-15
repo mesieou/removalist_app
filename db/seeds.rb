@@ -146,7 +146,7 @@ def recreate_users
 end
 
 def create_date_time(days)
-  Time.zone = 'Melbourne'
+  Time.zone = "Australia/Melbourne"
   start_hour = 6
   end_hour = 17
   start_time = Faker::Time.between_dates(from: Date.tomorrow + 3, to: Date.tomorrow + days)
@@ -154,14 +154,14 @@ def create_date_time(days)
 end
 
 def create_specific_start_time(start_time_in_minutes, day)
-  Time.zone = 'Melbourne'
+  Time.zone = "Australia/Melbourne"
   date = Date.tomorrow.to_time + day.day
   date.change(hour: start_time_in_minutes)
 end
 #Creating a specific booking for tomorrow at 10 am
 def recreate_bookings
   puts 'Creating 2 new bookings for tomorrow'
-  Time.zone = 'Melbourne'
+  Time.zone = "Australia/Melbourne"
   start_time_10_am = create_specific_start_time(10, 0)
   Booking.create!(
     price: 180,
@@ -217,7 +217,7 @@ def recreate_bookings
     kart: Kart.all.sample,
     user: User.all.sample,
   )
-  start_time_5_pm = create_specific_start_time(1, 2)
+  start_time_5_pm = create_specific_start_time(13, 2)
   Booking.create!(
     price: 250,
     duration_in_minutes: 140,
@@ -229,7 +229,7 @@ def recreate_bookings
     kart: Kart.all.sample,
     user: User.all.sample,
   )
-  start_time_5_pm = create_specific_start_time(4, 2)
+  start_time_5_pm = create_specific_start_time(16, 2)
   Booking.create!(
     price: 300,
     duration_in_minutes: 120,
