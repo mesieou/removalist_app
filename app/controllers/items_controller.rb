@@ -90,7 +90,7 @@ class ItemsController < ApplicationController
           if booking != todays_bookings.last && booking != todays_bookings.first
             next_booking_pick_up = todays_bookings[second_index].location.pick_up
             next_booking_drop_off = todays_bookings[second_index].location.drop_off
-            if todays_bookings.length > 3
+            if todays_bookings.length > 2
               after_next_booking_pick_up = todays_bookings[second_index + 1].location.pick_up
               after_next_booking_drop_off = todays_bookings[second_index + 1].location.drop_off
             end

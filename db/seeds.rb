@@ -145,11 +145,11 @@ def recreate_users
   puts 'All users created'
 end
 
-def create_date_time(days)
+def create_date_time(from_day, to_day)
   Time.zone = "Australia/Melbourne"
   start_hour = 6
   end_hour = 17
-  start_time = Faker::Time.between_dates(from: Date.tomorrow + 3, to: Date.tomorrow + days)
+  start_time = Faker::Time.between_dates(from: Date.tomorrow + from_day, to: Date.tomorrow + to_day)
   random_start_hour = start_time.change(hour: rand(start_hour..end_hour), min: rand(0..59))
 end
 
@@ -242,10 +242,25 @@ def recreate_bookings
     user: User.all.sample,
   )
 
+  #Creating a specific booking for 3+ after tomorrow. Only one booking for the day
+  puts 'Creating 1 new booking for the day after tomorrow'
+  start_time_5_pm = create_specific_start_time(16, 3)
+  Booking.create!(
+    price: 300,
+    duration_in_minutes: 120,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 90.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all.sample,
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+
   #Creating a specific booking for +3 days after tomorrow. 10 random bookings
   puts 'Creating new 10 random bookings from the day after tomorrow'
-  10.times do
-    start_time = create_date_time(4)
+  3.times do
+    start_time = create_date_time(5, 7)
     duration_in_minutes = rand(60..300)
     Booking.create!(
       price: rand(60..300),
