@@ -20,7 +20,7 @@
       <p>Booking</p>
     </div>
   </div>
-  <div class="search-and-add-items" data-controller="add-items" data-add-items-cart-value="<%= [@kart.id, @distance_matrix_array] %>">
+  <div class="search-and-add-items" data-controller="add-items" data-add-items-cart-value="<%= @kart.id %>">
     <%# search function %>
     <div class="search my-5">
       <%= form_with(model: @location, url: items_booking_index_path, class: 'd-flex justify-content-center', method: 'get') do |f| %>
@@ -51,7 +51,8 @@
                 data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop"
                 data-controller="fetch-distances"
-                data-fetch-distances-matrix-value="<%= @distance_matrix_array.to_json %>">
+                data-fetch-distances-matrix-value="<%= @distance_matrix_array.to_json %>"
+                data-fetch-distances-api-value="<%= @api %>">
                 Add to cart
         </button>
       </div>

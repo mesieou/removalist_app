@@ -8,6 +8,7 @@ class ItemsController < ApplicationController
     else
     @kart = Kart.create if @kart.nil?
     @distance_matrix_array = fetch_distances
+    @api = ENV["GOOGLEAPI"]
     end
 
     if params[:search_input].present?
