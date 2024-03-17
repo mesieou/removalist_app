@@ -8,7 +8,6 @@ class ItemsController < ApplicationController
     else
     @kart = Kart.create if @kart.nil?
     @distance_matrix_array = fetch_distances
-    raise
     end
 
     if params[:search_input].present?
