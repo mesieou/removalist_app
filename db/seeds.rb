@@ -27,7 +27,6 @@ ITEMS = {
 ADRESSES = [  "123 Smith Street, Melbourne VIC 3000",
   "142 Gatehouse Street, Parkville",
   "107 Park Street, South Yarra",
-  "1 Aberdeen Road, Blackburn South VIC",
   "482 Lygon Street, Carlton",
   "1/1-3 St Kilda Road, St Kilda",
   "8 wellington road, Box Hill",
@@ -41,7 +40,8 @@ ADRESSES = [  "123 Smith Street, Melbourne VIC 3000",
   "33 hartington drive wantirna",
   "33 harcourt street hawthorn east",
   "33 halliday street mount waverley",
-  "33 harrington avenue balwyn north"
+  "33 harrington avenue balwyn north",
+  "9 Ashton rise narre warren south",
 ]
 
 #Method to destroy and create items in the list_of_items table
@@ -61,8 +61,8 @@ def recreate_locations
 
    # Creating house to house location, single story
   Location.create!(
-    pick_up: ADRESSES.sample,
-    drop_off: ADRESSES.sample,
+    pick_up: ADRESSES[0],
+    drop_off: ADRESSES[1],
     pick_up_type_of_place: 'house',
     drop_off_type_of_place: 'house',
     pick_up_number_of_stories: '1',
@@ -72,8 +72,8 @@ def recreate_locations
     )
    #creating house to apartment location
   Location.create!(
-    pick_up: ADRESSES.sample,
-    drop_off: ADRESSES.sample,
+    pick_up: ADRESSES[2],
+    drop_off: ADRESSES[3],
     pick_up_type_of_place: 'house',
     drop_off_type_of_place: 'apartment',
     pick_up_number_of_stories: '1',
@@ -83,8 +83,8 @@ def recreate_locations
   )
    #creating apartment to apartment location and stairs
   Location.create!(
-    pick_up: ADRESSES.sample,
-    drop_off: ADRESSES.sample,
+    pick_up: ADRESSES[4],
+    drop_off: ADRESSES[5],
     pick_up_type_of_place: 'apartment',
     drop_off_type_of_place: 'apartment',
     pick_up_number_of_stories: '2',
@@ -92,19 +92,171 @@ def recreate_locations
     pick_up_stairs_or_lift: 'stairs',
     drop_off_stairs_or_lift: 'stairs'
   )
-  #creating randonm location with each address in the array
-  ADRESSES.each do |address|
-    Location.create!(
-      pick_up: address,
-      drop_off: ADRESSES.sample,
-      pick_up_type_of_place: 'apartment',
-      drop_off_type_of_place: 'apartment',
-      pick_up_number_of_stories: '2',
-      drop_off_number_of_stories: '2',
-      pick_up_stairs_or_lift: 'stairs',
-      drop_off_stairs_or_lift: 'stairs'
+  # Creating house to house location, single story
+  Location.create!(
+    pick_up: ADRESSES[6],
+    drop_off: ADRESSES[7],
+    pick_up_type_of_place: 'house',
+    drop_off_type_of_place: 'house',
+    pick_up_number_of_stories: '1',
+    drop_off_number_of_stories: '1',
+    pick_up_stairs_or_lift: 'stairs',
+    drop_off_stairs_or_lift: 'stairs'
     )
-  end
+   #creating house to apartment location
+  Location.create!(
+    pick_up: ADRESSES[8],
+    drop_off: ADRESSES[9],
+    pick_up_type_of_place: 'house',
+    drop_off_type_of_place: 'apartment',
+    pick_up_number_of_stories: '1',
+    drop_off_number_of_stories: '2',
+    pick_up_stairs_or_lift: 'lift',
+    drop_off_stairs_or_lift: 'lift'
+  )
+   #creating apartment to apartment location and stairs
+  Location.create!(
+    pick_up: ADRESSES[10],
+    drop_off: ADRESSES[11],
+    pick_up_type_of_place: 'apartment',
+    drop_off_type_of_place: 'apartment',
+    pick_up_number_of_stories: '2',
+    drop_off_number_of_stories: '2',
+    pick_up_stairs_or_lift: 'stairs',
+    drop_off_stairs_or_lift: 'stairs'
+  )
+  # Creating house to house location, single story
+  Location.create!(
+    pick_up: ADRESSES[12],
+    drop_off: ADRESSES[13],
+    pick_up_type_of_place: 'house',
+    drop_off_type_of_place: 'house',
+    pick_up_number_of_stories: '1',
+    drop_off_number_of_stories: '1',
+    pick_up_stairs_or_lift: 'stairs',
+    drop_off_stairs_or_lift: 'stairs'
+    )
+   #creating house to apartment location
+  Location.create!(
+    pick_up: ADRESSES[14],
+    drop_off: ADRESSES[15],
+    pick_up_type_of_place: 'house',
+    drop_off_type_of_place: 'apartment',
+    pick_up_number_of_stories: '1',
+    drop_off_number_of_stories: '2',
+    pick_up_stairs_or_lift: 'lift',
+    drop_off_stairs_or_lift: 'lift'
+  )
+   #creating apartment to apartment location and stairs
+  Location.create!(
+    pick_up: ADRESSES[16],
+    drop_off: ADRESSES[17],
+    pick_up_type_of_place: 'apartment',
+    drop_off_type_of_place: 'apartment',
+    pick_up_number_of_stories: '2',
+    drop_off_number_of_stories: '2',
+    pick_up_stairs_or_lift: 'stairs',
+    drop_off_stairs_or_lift: 'stairs'
+  )
+   # Creating house to house location, single story
+   Location.create!(
+    pick_up: ADRESSES[0],
+    drop_off: ADRESSES[1],
+    pick_up_type_of_place: 'house',
+    drop_off_type_of_place: 'house',
+    pick_up_number_of_stories: '1',
+    drop_off_number_of_stories: '1',
+    pick_up_stairs_or_lift: 'stairs',
+    drop_off_stairs_or_lift: 'stairs'
+    )
+   #creating house to apartment location
+  Location.create!(
+    pick_up: ADRESSES[2],
+    drop_off: ADRESSES[3],
+    pick_up_type_of_place: 'house',
+    drop_off_type_of_place: 'apartment',
+    pick_up_number_of_stories: '1',
+    drop_off_number_of_stories: '2',
+    pick_up_stairs_or_lift: 'lift',
+    drop_off_stairs_or_lift: 'lift'
+  )
+   #creating apartment to apartment location and stairs
+  Location.create!(
+    pick_up: ADRESSES[4],
+    drop_off: ADRESSES[5],
+    pick_up_type_of_place: 'apartment',
+    drop_off_type_of_place: 'apartment',
+    pick_up_number_of_stories: '2',
+    drop_off_number_of_stories: '2',
+    pick_up_stairs_or_lift: 'stairs',
+    drop_off_stairs_or_lift: 'stairs'
+  )
+  # Creating house to house location, single story
+  Location.create!(
+    pick_up: ADRESSES[6],
+    drop_off: ADRESSES[7],
+    pick_up_type_of_place: 'house',
+    drop_off_type_of_place: 'house',
+    pick_up_number_of_stories: '1',
+    drop_off_number_of_stories: '1',
+    pick_up_stairs_or_lift: 'stairs',
+    drop_off_stairs_or_lift: 'stairs'
+    )
+   #creating house to apartment location
+  Location.create!(
+    pick_up: ADRESSES[8],
+    drop_off: ADRESSES[9],
+    pick_up_type_of_place: 'house',
+    drop_off_type_of_place: 'apartment',
+    pick_up_number_of_stories: '1',
+    drop_off_number_of_stories: '2',
+    pick_up_stairs_or_lift: 'lift',
+    drop_off_stairs_or_lift: 'lift'
+  )
+   #creating apartment to apartment location and stairs
+  Location.create!(
+    pick_up: ADRESSES[10],
+    drop_off: ADRESSES[11],
+    pick_up_type_of_place: 'apartment',
+    drop_off_type_of_place: 'apartment',
+    pick_up_number_of_stories: '2',
+    drop_off_number_of_stories: '2',
+    pick_up_stairs_or_lift: 'stairs',
+    drop_off_stairs_or_lift: 'stairs'
+  )
+  # Creating house to house location, single story
+  Location.create!(
+    pick_up: ADRESSES[12],
+    drop_off: ADRESSES[13],
+    pick_up_type_of_place: 'house',
+    drop_off_type_of_place: 'house',
+    pick_up_number_of_stories: '1',
+    drop_off_number_of_stories: '1',
+    pick_up_stairs_or_lift: 'stairs',
+    drop_off_stairs_or_lift: 'stairs'
+    )
+   #creating house to apartment location
+  Location.create!(
+    pick_up: ADRESSES[14],
+    drop_off: ADRESSES[15],
+    pick_up_type_of_place: 'house',
+    drop_off_type_of_place: 'apartment',
+    pick_up_number_of_stories: '1',
+    drop_off_number_of_stories: '2',
+    pick_up_stairs_or_lift: 'lift',
+    drop_off_stairs_or_lift: 'lift'
+  )
+   #creating apartment to apartment location and stairs
+  Location.create!(
+    pick_up: ADRESSES[16],
+    drop_off: ADRESSES[17],
+    pick_up_type_of_place: 'apartment',
+    drop_off_type_of_place: 'apartment',
+    pick_up_number_of_stories: '2',
+    drop_off_number_of_stories: '2',
+    pick_up_stairs_or_lift: 'stairs',
+    drop_off_stairs_or_lift: 'stairs'
+  )
 end
 
 #Method to destroy and create new items
@@ -169,7 +321,7 @@ def recreate_bookings
     start_date_time: start_time_10_am,
     end_date_time: start_time_10_am + 120.minutes,
     status: ['pending', 'confirmed', 'cancelled'].sample,
-    location: Location.all.sample,
+    location: Location.all[0],
     service: Service.all.sample,
     kart: Kart.all.sample,
     user: User.all.sample,
@@ -182,14 +334,14 @@ def recreate_bookings
     start_date_time: start_time_5_pm,
     end_date_time: start_time_5_pm + 90.minutes,
     status: ['pending', 'confirmed', 'cancelled'].sample,
-    location: Location.all.sample,
+    location: Location.all[1],
     service: Service.all.sample,
     kart: Kart.all.sample,
     user: User.all.sample,
   )
 
-  #Creating a specific booking for the day after tomorrow. Only one booking for the day
-  puts 'Creating 1 new booking for the day after tomorrow'
+  #Creating a specific booking for the second day in the morning
+  puts 'Creating 1 new booking in the morning on the second day'
   start_time_5_pm = create_specific_start_time(7, 1)
   Booking.create!(
     price: 300,
@@ -197,14 +349,14 @@ def recreate_bookings
     start_date_time: start_time_5_pm,
     end_date_time: start_time_5_pm + 90.minutes,
     status: ['pending', 'confirmed', 'cancelled'].sample,
-    location: Location.all.sample,
+    location: Location.all[2],
     service: Service.all.sample,
     kart: Kart.all.sample,
     user: User.all.sample,
   )
 
-  #Creating a specific booking for +2 days after tomorrow. 3 bookings for the day
-  puts 'Creating 3 new bookings for +2 days after tomorrow'
+  #Creating 3 bookings on the third day
+  puts 'Creating 3 new bookings for third day'
   start_time_5_pm = create_specific_start_time(8, 2)
   Booking.create!(
     price: 100,
@@ -212,7 +364,7 @@ def recreate_bookings
     start_date_time: start_time_5_pm,
     end_date_time: start_time_5_pm + 90.minutes,
     status: ['pending', 'confirmed', 'cancelled'].sample,
-    location: Location.all.sample,
+    location: Location.all[3],
     service: Service.all.sample,
     kart: Kart.all.sample,
     user: User.all.sample,
@@ -224,7 +376,7 @@ def recreate_bookings
     start_date_time: start_time_5_pm,
     end_date_time: start_time_5_pm + 90.minutes,
     status: ['pending', 'confirmed', 'cancelled'].sample,
-    location: Location.all.sample,
+    location: Location.all[4],
     service: Service.all.sample,
     kart: Kart.all.sample,
     user: User.all.sample,
@@ -236,14 +388,14 @@ def recreate_bookings
     start_date_time: start_time_5_pm,
     end_date_time: start_time_5_pm + 90.minutes,
     status: ['pending', 'confirmed', 'cancelled'].sample,
-    location: Location.all.sample,
+    location: Location.all[5],
     service: Service.all.sample,
     kart: Kart.all.sample,
     user: User.all.sample,
   )
 
-  #Creating a specific booking for 3+ after tomorrow. Only one booking for the day
-  puts 'Creating 1 new booking for the day after tomorrow'
+  #Creating 1 booking in the afternoon on the fourth day
+  puts 'Creating 1 new booking in the afternoon on the 4rd day'
   start_time_5_pm = create_specific_start_time(16, 3)
   Booking.create!(
     price: 300,
@@ -251,30 +403,91 @@ def recreate_bookings
     start_date_time: start_time_5_pm,
     end_date_time: start_time_5_pm + 90.minutes,
     status: ['pending', 'confirmed', 'cancelled'].sample,
-    location: Location.all.sample,
+    location: Location.all[6],
     service: Service.all.sample,
     kart: Kart.all.sample,
     user: User.all.sample,
   )
 
-  #Creating a specific booking for +3 days after tomorrow. 10 random bookings
-  puts 'Creating new 10 random bookings from the day after tomorrow'
-  3.times do
-    start_time = create_date_time(5, 7)
-    duration_in_minutes = rand(60..300)
-    Booking.create!(
-      price: rand(60..300),
-      duration_in_minutes: duration_in_minutes,
-      start_date_time: start_time,
-      end_date_time: start_time + duration_in_minutes.minutes,
-      status: ['pending', 'confirmed', 'cancelled'].sample,
-      location: Location.all.sample,
-      service: Service.all.sample,
-      kart: Kart.all.sample,
-      user: User.all.sample,
-    )
-    puts 'Booking created'
-  end
+  #Creating 4 bookins on the 5th day.
+  puts 'Creating new 4 bookings on day 5th'
+  start_time_5_pm = create_specific_start_time(6, 4)
+  Booking.create!(
+    price: 300,
+    duration_in_minutes: 120,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 120.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all[7],
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+  start_time_5_pm = create_specific_start_time(9, 4)
+  Booking.create!(
+    price: 300,
+    duration_in_minutes: 150,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 150.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all[8],
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+  start_time_5_pm = create_specific_start_time(12, 4)
+  Booking.create!(
+    price: 300,
+    duration_in_minutes: 90,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 90.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all[9],
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+  start_time_5_pm = create_specific_start_time(14, 4)
+  Booking.create!(
+    price: 300,
+    duration_in_minutes: 90,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 90.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all[10],
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+
+  #Creating 3 bookins on the 6th day. Morning and afternoon.
+  puts 'Creating new 2 bookings on day 6th. Morning and afternoon'
+  start_time_5_pm = create_specific_start_time(7, 5)
+  Booking.create!(
+    price: 300,
+    duration_in_minutes: 90,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 90.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all[11],
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+  start_time_5_pm = create_specific_start_time(15, 5)
+  Booking.create!(
+    price: 300,
+    duration_in_minutes: 180,
+    start_date_time: start_time_5_pm,
+    end_date_time: start_time_5_pm + 180.minutes,
+    status: ['pending', 'confirmed', 'cancelled'].sample,
+    location: Location.all[12],
+    service: Service.all.sample,
+    kart: Kart.all.sample,
+    user: User.all.sample,
+  )
+
+
 
   puts 'All bookings created'
 end
