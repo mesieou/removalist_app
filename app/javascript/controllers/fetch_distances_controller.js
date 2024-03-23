@@ -7,30 +7,41 @@ export default class extends Controller {
   static values = { matrix: Array,
                     api: String }
 
-  connect() {
-    console.log(this.matrixValue)
-    const daysResult = []
-    this.matrixValue.forEach( day => {
-      // console.log(day)
-      const days = Object.values(day)[0]
+    async connect() {
+      console.log(this.matrixValue);
+      const daysResult = [];
 
-      days.forEach( (pair, index) => {
-        let booking_options = []
+      await this.processDays(daysResult);
 
+      console.log(daysResult);
+    }
+
+    async processDays(daysResult) {
+      await Promise.all(this.matrixValue.map(async (day, index) => {
+        const days = Object.values(day)[0];
+        const booking_options = [];
+
+        await this.processPairs(days, booking_options);
+
+        daysResult.push({ [`Day ${index}`]: booking_options });
+      }));
+    }
+
+    async processPairs(days, booking_options) {
+      await Promise.all(days.map(async (pair, index) => {
         if (typeof pair === 'object' && !Array.isArray(pair)) {
-          booking_options.push(this.fetchDistances(pair))
+          const response = await this.fetchDistances(pair);
+          booking_options.push(response);
         } else {
-          const options = []
+          const options = [];
 
-          pair.forEach( request => {
-            options.push(this.fetchDistances(request))
-          });
-          booking_options.push(options)
+          await Promise.all(pair.map(async (request) => {
+            const response = await this.fetchDistances(request);
+            options.push(response);
+          }));
+          booking_options.push(options);
         }
-        daysResult.push({ [`Day ${index}`]: booking_options })
-      });
-    });
-    console.log(daysResult)
+      }));
   }
 
   getLoader() {
@@ -42,23 +53,18 @@ export default class extends Controller {
     return loader
   }
 
-  fetchDistances(request) {
-    const loader = this.getLoader()
-    loader
-      .load()
-      .then((google) => {
-        var service = new google.maps.DistanceMatrixService();
-        service.getDistanceMatrix(request, callback);
-      })
-      .catch((e) => {
-        console.log("error loading gmaps")
-      })
+  async fetchDistances(request) {
+    const google = await this.getLoader().load();
+    const service = new google.maps.DistanceMatrixService();
 
-    function callback(response, status) {
-      if (status == 'OK') {
-        console.log(response)
-      }
-    }
+    return new Promise((resolve, reject) => {
+      service.getDistanceMatrix(request, (response, status) => {
+        if (status == 'OK') {
+          resolve(response);
+        } else {
+          reject(status);
+        }
+      });
+    });
   }
-
 }
