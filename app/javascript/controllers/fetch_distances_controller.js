@@ -13,6 +13,13 @@ export default class extends Controller {
 
       await this.processDays(daysResult);
 
+      daysResult.sort((a, b) => {
+        const indexA = parseInt(Object.keys(a)[0].split(" ")[1]);
+        const indexB = parseInt(Object.keys(b)[0].split(" ")[1]);
+        return indexA - indexB;
+      });
+
+
       console.log(daysResult);
     }
 
@@ -22,8 +29,13 @@ export default class extends Controller {
         const booking_options = [];
 
         await this.processPairs(days, booking_options);
-
-        daysResult.push({ [`Day ${index}`]: booking_options });
+        booking_options.sort((a, b) => {
+          const indexA = parseInt(Object.keys(a)[0].split(" ")[1]);
+          const indexB = parseInt(Object.keys(b)[0].split(" ")[1]);
+          return indexA - indexB;
+        });
+        debugger
+        daysResult.push({ [`Day ${index + 1}`]: booking_options });
       }));
     }
 
@@ -31,13 +43,14 @@ export default class extends Controller {
       await Promise.all(days.map(async (pair, index) => {
         if (typeof pair === 'object' && !Array.isArray(pair)) {
           const response = await this.fetchDistances(pair);
-          booking_options.push(response);
+
+          booking_options.push({ [`Day ${index + 1}`]: response });
         } else {
           const options = [];
 
           await Promise.all(pair.map(async (request) => {
             const response = await this.fetchDistances(request);
-            options.push(response);
+            options.push({ [`Day ${index + 1}`]: response });
           }));
           booking_options.push(options);
         }
