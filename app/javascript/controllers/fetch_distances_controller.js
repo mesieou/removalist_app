@@ -8,18 +8,20 @@ export default class extends Controller {
                     api: String }
 
   connect() {
+    console.log(this.matrixValue)
+    const daysResult = []
     this.matrixValue.forEach( day => {
-      console.log(day)
-      const daysResult = []
+      // console.log(day)
       const days = Object.values(day)[0]
 
       days.forEach( (pair, index) => {
-        const booking_options = []
+        let booking_options = []
 
         if (typeof pair === 'object' && !Array.isArray(pair)) {
           booking_options.push(this.fetchDistances(pair))
         } else {
           const options = []
+
           pair.forEach( request => {
             options.push(this.fetchDistances(request))
           });
@@ -28,7 +30,7 @@ export default class extends Controller {
         daysResult.push({ [`Day ${index}`]: booking_options })
       });
     });
-    console.log(booking_options)
+    console.log(daysResult)
   }
 
   getLoader() {
@@ -47,7 +49,6 @@ export default class extends Controller {
       .then((google) => {
         var service = new google.maps.DistanceMatrixService();
         service.getDistanceMatrix(request, callback);
-        raise
       })
       .catch((e) => {
         console.log("error loading gmaps")
