@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   root to: "pages#home"
+  get 'pages/options', to: 'pages#options', as: 'options'
   resources :booking do
     collection do
       get 'locations/new', to: 'locations#new', as: 'new_location'
